@@ -1,0 +1,4 @@
+<%- if !@config.nil? and !@config.empty?
+require 'yaml' -%>
+<%= @config.to_yaml %>
+<%- end -%>
