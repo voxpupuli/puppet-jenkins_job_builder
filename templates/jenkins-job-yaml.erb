@@ -1,4 +1,40 @@
-<%- if !@config.nil? and !@config.empty?
-require 'yaml' -%>
-<%= @config.to_yaml %>
+<%-
+    require 'yaml'
+    
+    def sort_yaml(obj, nest=0)
+      yaml_string = ""
+      if obj.instance_of?(Array)
+        obj.each do |element|
+          if element.instance_of?(Hash)
+            one = element.keys.sort!
+            one.each do |o|
+              if nest > 0
+                space = " "*(nest+4)
+              else
+                space = " "*(nest+2)
+              end
+              yaml_string << "\n" + space + "- #{o}:"
+              yaml_string << sort_yaml(element["#{o}"], nest+3)
+            end
+          else
+            yaml_string << "\n"  + (" "*(nest+5)) + "- \"#{element.to_s}\""
+          end
+        end
+      elsif obj.instance_of?(Hash)
+        one = obj.keys.sort!
+        one.each do |o|
+          yaml_string << "\n" + (" "*(nest+4)) + "#{o}:"
+          yaml_string << sort_yaml(obj["#{o}"], nest+1)
+        end
+      else
+        yaml_string << " \"#{obj.to_s.gsub(/[\n]/, '\\n')}\""
+      end
+      return yaml_string
+    end
+    
+    if !@config.nil? and !@config.empty?
+-%>
+---
+<%= sort_yaml(@config, 0) %>
+
 <%- end -%>

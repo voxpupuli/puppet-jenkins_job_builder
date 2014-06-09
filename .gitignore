@@ -5,3 +5,4 @@ spec/fixtures
 .vagrant
 .idea
 *.iml
+Gemfile.lock

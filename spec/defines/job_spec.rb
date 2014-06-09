@@ -37,7 +37,7 @@ describe 'jenkins_job_builder::job', :type => :define do
         'config' => { 'test' => { 'name' => 'test' } }
       }}
 
-      it { should contain_file('/tmp/jenkins-test.yaml').with_content(/name:\s+test/) }
+      it { should contain_file('/tmp/jenkins-test.yaml').with_content(/name:\s+"test"/) }
     end
   end
 end

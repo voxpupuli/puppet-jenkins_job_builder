@@ -1,0 +1,22 @@
+---
+jenkins_job_builder::user: 'test'
+jenkins_job_builder::password: 'test'
+jenkins_job_builder::jobs:
+  test:
+    delay: 5
+    config:
+      - job:
+          name: test
+          description: "This a test job"
+          project-type: freestyle
+          scm:
+            - git:
+                branches:
+                  - "*/master"
+                builders:
+                  - shell: |
+                      #!/bin/bash -l
+                      echo test
+                triggers:
+                  - pollscm: "*/1 * * * *"
+                url: "git@github.com:opentable/puppet-jenkins_job_builder"
