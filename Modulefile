@@ -1,4 +1,4 @@
-name          'puppet-jenkins_job_builder'
+name          'opentable-jenkins_job_builder'
 version       '0.1.0'
 source        'git://github.com/opentable/puppet-jenkins_job_builder.git'
 author        'puppet'
