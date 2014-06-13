@@ -1,6 +1,13 @@
 <%-
     require 'yaml'
     
+    def escape_quotes(s)
+      substr = s
+      substr = s[1..-1] if s[0].eql?('"')
+      substr.gsub!(/"/){ '\"' }
+      "\"#{substr}\""
+    end
+    
     def sort_yaml(obj, nest=0)
       yaml_string = ""
       if obj.instance_of?(Array)
@@ -27,14 +34,11 @@
           yaml_string << sort_yaml(obj["#{o}"], nest+1)
         end
       else
-        yaml_string << " \"#{obj.to_s.gsub(/[\n]/, '\\n')}\""
+        yaml_string << " " + escape_quotes(obj.to_s.gsub(/[\n]/, '\\n'))
       end
       return yaml_string
     end
     
     if !@config.nil? and !@config.empty?
--%>
----
-<%= sort_yaml(@config, 0) %>
-
+-%>---<%= sort_yaml(@config, 0) %>
 <%- end -%>

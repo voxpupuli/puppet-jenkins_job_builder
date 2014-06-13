@@ -24,7 +24,6 @@ describe 'jenkins_job_builder class' do
 
     yaml_content = <<-'YAML'
 ---
-
   - job:
        description: "This a test job"
        name: "test"
@@ -34,11 +33,10 @@ describe 'jenkins_job_builder class' do
            branches:
              - "*/master"
            builders:
-            - shell: "#!/bin/bash -l\necho test\n"
+            - shell: "#!/bin/bash -l\necho \"test\"\n"
            triggers:
             - pollscm: "*/1 * * * *"
            url: "git@github.com:opentable/puppet-jenkins_job_builder"
-
 YAML
 
     describe file('/tmp/jenkins-test.yaml') do

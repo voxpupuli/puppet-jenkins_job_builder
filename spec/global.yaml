@@ -16,7 +16,7 @@ jenkins_job_builder::jobs:
                 builders:
                   - shell: |
                       #!/bin/bash -l
-                      echo test
+                      echo "test"
                 triggers:
                   - pollscm: "*/1 * * * *"
                 url: "git@github.com:opentable/puppet-jenkins_job_builder"

@@ -1,5 +1,5 @@
 name          'opentable-jenkins_job_builder'
-version       '0.1.0'
+version       '0.1.1'
 source        'git://github.com/opentable/puppet-jenkins_job_builder.git'
 author        'puppet'
 license       'Apache License, Version 2.0'
