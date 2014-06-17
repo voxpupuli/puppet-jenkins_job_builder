@@ -12,4 +12,18 @@ class jenkins_job_builder::params {
   $jenkins_url = 'http://localhost:8080'
   $version = 'latest'
 
+  case $::osfamily {
+    'RedHat', 'Amazon': {
+      $python_packages = [ 'python', 'python-devel', 'python-pip', ]
+    }
+    debian: {
+      $python_packages = [ 'python', 'python-dev', 'python-pip', ]
+    }
+    default: {
+      fail("${::operatingsystem} not supported")
+    }
+  }
+
+
+
 }

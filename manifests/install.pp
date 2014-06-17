@@ -11,7 +11,7 @@ class jenkins_job_builder::install(
     fail("Use of private class ${name} by ${caller_module_name}")
   }
 
-  ensure_resource('package', ['python', 'python-dev', 'python-pip'], { 'ensure' => 'present' })
+  ensure_resource('package', $jenkins_job_builder::params::python_packages, { 'ensure' => 'present' })
   ensure_resource('package', 'pyyaml', { 'ensure' => 'present', 'provider' => 'pip', 'require' => 'Package[python]'})
 
   package { 'jenkins-job-builder':

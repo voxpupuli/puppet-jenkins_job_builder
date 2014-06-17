@@ -13,7 +13,7 @@ describe 'jenkins_job_builder' do
 
         it { should contain_class('jenkins_job_builder::params') }
 
-        ['python', 'python-dev', 'python-pip', 'pyyaml'].each do |dep|
+        ['python', 'python-pip', 'pyyaml'].each do |dep|
           it { should contain_package(dep).with_ensure('present') }
         end
 
