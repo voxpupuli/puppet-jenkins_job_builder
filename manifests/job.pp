@@ -1,3 +1,7 @@
+# Author::    Liam Bennett  (mailto:lbennett@opentable.com)
+# Copyright:: Copyright (c) 2013 OpenTable Inc
+# License::   MIT
+
 # == Define: jenkins_job_builder::job
 #
 # The purpose of this defintion is to manage the configuration of a single Jenkins job.

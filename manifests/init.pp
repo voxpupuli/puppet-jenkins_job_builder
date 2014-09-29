@@ -1,3 +1,7 @@
+# Author::    Liam Bennett  (mailto:lbennett@opentable.com)
+# Copyright:: Copyright (c) 2013 OpenTable Inc
+# License::   MIT
+
 # == Class: jenkins_job_builder
 #
 # The purpose of this module is to install the jenkins_job_builder tool to manage jenkins jobs

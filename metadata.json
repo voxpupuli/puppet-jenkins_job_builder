@@ -1,32 +1,32 @@
 {
-    "operatingsystem_support": [
-        { "operatingsystem": "RedHat" },
-        { "operatingsystem": "CentOS" },
-        { "operatingsystem": "Debian" },
-        { "operatingsystem": "Ubuntu" }
-    ],
-    "requirements": [
-        {
-            "name": "pe",
-            "version_requirement": "3.2.x"
-        },
-        {
-            "name": "puppet",
-            "version_requirement": "3.x"
-        }
-    ],
-    "name":         "opentable-jenkins_job_builder",
-    "version":      "0.1.1",
-    "source":       "git://github.com/opentable/puppet-jenkins_job_builder.git",
-    "author":       "opentable",
-    "summary":      "Module for managing the openstack jenkins_job_builder tool",
-    "description":  "The openstack jenkins_job_builder tool manages the configuration of jobs in your Jenkins instance",
-    "project_page": "https://github.com/opentable/puppet-jenkins_job_builder",
-    "license":      "MIT",
-    "dependencies": [
-        {
-            "name": "puppetlabs/stdlib",
-            "version_requirement": ">= 3.0.0"
-        }
-    ]
+  "name":         "opentable-jenkins_job_builder",
+  "version":      "0.1.1",
+  "author":       "opentable",
+  "license":      "MIT",
+  "summary":      "Module for managing the openstack jenkins_job_builder tool",
+  "source":       "git://github.com/opentable/puppet-jenkins_job_builder.git",
+  "project_page": "https://github.com/opentable/puppet-jenkins_job_builder",
+  "issues_url":   "https://github.com/opentable/puppet-jenkins_job_builder/issues",
+  "tags":         ["jenkins"],
+  "operatingsystem_support": [
+      {
+        "operatingsystem": "RedHat",
+        "operatingsystemrelease": ["5.0","6.0"]
+      },
+      { "operatingsystem": "CentOS",
+        "operatingsystemrelease": ["5.0","6.0"]
+      },
+      { "operatingsystem": "Debian",
+        "operatingsystemrelease": ["6.0","7.0"]
+      },
+      { "operatingsystem": "Ubuntu",
+        "operatingsystemrelease": ["12.04","14.04"]
+      }
+  ],
+  "dependencies": [
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 3.0.0 <5.0.0"
+    }
+  ]
 }
