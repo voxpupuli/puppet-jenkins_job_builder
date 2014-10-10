@@ -31,6 +31,9 @@
 # [*jenkins_url*]
 # The full url (including port) to the jenkins instance.
 #
+# [*service*]
+# The service launching job will require in jenkins_job_builder::job
+#
 #  === Examples
 #
 # Installing jenkins_job_builder to a specified version
@@ -45,7 +48,8 @@ class jenkins_job_builder(
   $user = $jenkins_job_builder::params::user,
   $password = $jenkins_job_builder::params::password,
   $hipchat_token = $jenkins_job_builder::params::hipchat_token,
-  $jenkins_url = $jenkins_job_builder::params::jenkins_url
+  $jenkins_url = $jenkins_job_builder::params::jenkins_url,
+  $service = $jenkins_job_builder::params::service,
 ) inherits jenkins_job_builder::params {
 
   validate_re($::osfamily,'RedHat|Debian',"${::osfamily} not supported")

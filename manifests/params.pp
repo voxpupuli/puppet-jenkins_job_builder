@@ -15,6 +15,7 @@ class jenkins_job_builder::params {
   $hipchat_token = ''
   $jenkins_url = 'http://localhost:8080'
   $version = 'latest'
+  $service = 'jenkins'
 
   case $::osfamily {
     'RedHat', 'Amazon': {
