@@ -1,6 +1,6 @@
 {
   "name":         "opentable-jenkins_job_builder",
-  "version":      "0.1.1",
+  "version":      "1.0.0",
   "author":       "opentable",
   "license":      "MIT",
   "summary":      "Module for managing the openstack jenkins_job_builder tool",
