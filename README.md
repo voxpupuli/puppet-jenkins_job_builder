@@ -15,8 +15,7 @@
 
 Install [jenkins_job_builder](ci.openstack.org/jenkins-job-builder/) to allow you to manage your Jenkins jobs  
 
-[![Build
-Status](https://secure.travis-ci.org/opentable/puppet-jenkins_job_builder.png)](https://secure.travis-ci.org/opentable/puppet-jenkins_job_builder.png)
+[![Build Status](https://secure.travis-ci.org/opentable/puppet-jenkins_job_builder.png)](https://secure.travis-ci.org/opentable/puppet-jenkins_job_builder.png)
 
 ##Module Description
 
@@ -65,6 +64,9 @@ If using the jenkins hipchat plugin, this is the token that should be specified 
 ####`jenkins_url`
 The full url (including port) to the jenkins instance.
 
+####`service`
+The name of the jenkins service to restart when configuration changes are made
+
 #####Define: `jenkins_job_builder::job`
 
 **Parameters within `jenkins_job_builder::job`:**
@@ -99,14 +101,3 @@ It is tested with the OSS version of Puppet only.
 ###Contributing
 
 Please read CONTRIBUTING.md for full details on contributing to this project.
-
-###Running tests
-
-This project contains tests for both [rspec-puppet](http://rspec-puppet.com/) and [beaker](https://github.com/puppetlabs/beaker) to verify functionality. For in-depth information please see their respective documentation.
-
-Quickstart:
-
-    gem install bundler
-    bundle install
-    bundle exec rake spec
-	BEAKER_DEBUG=yes bundle exec rspec spec/acceptance

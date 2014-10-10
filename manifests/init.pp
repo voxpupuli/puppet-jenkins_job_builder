@@ -32,7 +32,7 @@
 # The full url (including port) to the jenkins instance.
 #
 # [*service*]
-# The service launching job will require in jenkins_job_builder::job
+# The name of the jenkins service to restart when configuration changes are made
 #
 #  === Examples
 #
