@@ -11,7 +11,7 @@ describe 'jenkins_job_builder::job', :type => :define do
         it { should contain_file('/tmp/jenkins-test.yaml').with_content('') }
 
         it { should contain_exec('manage jenkins job - test').with(
-          'command' => '/bin/sleep 0 && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-test.yaml',
+          'command' => '/bin/sleep 0 && jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-test.yaml',
           'refreshonly' => 'true',
           'require' => 'Service[jenkins]'
         )}
@@ -27,7 +27,7 @@ describe 'jenkins_job_builder::job', :type => :define do
       }}
 
       it { should contain_exec('manage jenkins job - test').with(
-        'command' => '/bin/sleep 5 && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-test.yaml'
+        'command' => '/bin/sleep 5 && jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-test.yaml'
       )}
     end
 
