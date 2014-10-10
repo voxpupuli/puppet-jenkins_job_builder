@@ -14,6 +14,9 @@
 # [*delay*]
 # The time (in seconds) to delay the creatation of the Jenkins job. This is to avoid issues where Jenkins restarts during a puppet run.
 #
+# [*service_name*]
+# The name of the jenkins service to restart when configuration changes are made
+#
 #  === Examples
 #
 # Installing jenkins_job_builder::job to configure a job
@@ -44,7 +47,8 @@
 #
 define jenkins_job_builder::job (
   $config = {},
-  $delay = 0
+  $delay = 0,
+  $service_name = 'jenkins'
 ) {
 
   file { "/tmp/jenkins-${name}.yaml":
@@ -56,7 +60,7 @@ define jenkins_job_builder::job (
   exec { "manage jenkins job - ${name}":
     command     => "/bin/sleep ${delay} && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-${name}.yaml",
     refreshonly => true,
-    require     => Service[$jenkins_job_builder::service]
+    require     => Service[$service_name]
   }
 
 }

@@ -64,9 +64,6 @@ If using the jenkins hipchat plugin, this is the token that should be specified 
 ####`jenkins_url`
 The full url (including port) to the jenkins instance.
 
-####`service`
-The name of the jenkins service to restart when configuration changes are made
-
 #####Define: `jenkins_job_builder::job`
 
 **Parameters within `jenkins_job_builder::job`:**
@@ -75,6 +72,9 @@ A hash of the configuration for all the job you want to configure in your Jenkin
 
 ####`delay`
 The time (in seconds) to delay the creatation of the Jenkins job. This is to avoid issues where Jenkins restarts during a puppet run.
+
+####`service_name`
+The name of the jenkins service to restart when configuration changes are made. Defaults to 'jenkins'
 
 ##Reference
 

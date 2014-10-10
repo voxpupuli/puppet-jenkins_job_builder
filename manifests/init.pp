@@ -31,9 +31,6 @@
 # [*jenkins_url*]
 # The full url (including port) to the jenkins instance.
 #
-# [*service*]
-# The name of the jenkins service to restart when configuration changes are made
-#
 #  === Examples
 #
 # Installing jenkins_job_builder to a specified version
@@ -49,7 +46,7 @@ class jenkins_job_builder(
   $password = $jenkins_job_builder::params::password,
   $hipchat_token = $jenkins_job_builder::params::hipchat_token,
   $jenkins_url = $jenkins_job_builder::params::jenkins_url,
-  $service = $jenkins_job_builder::params::service,
+  $service = 'jenkins'
 ) inherits jenkins_job_builder::params {
 
   validate_re($::osfamily,'RedHat|Debian',"${::osfamily} not supported")
