@@ -39,5 +39,15 @@ describe 'jenkins_job_builder::job', :type => :define do
 
       it { should contain_file('/tmp/jenkins-test.yaml').with_content(/name:\s+"test"/) }
     end
+    describe 'job yaml' do
+        let(:title) {'test'}
+        let(:params) {{
+            'job_yaml' => "---\n- job:\n    name: \"test\"\n"
+        }}
+        it {
+            should contain_file('/tmp/jenkins-test.yaml').\
+              with_content(/---\n- job:\n    name: "test"\n/m)
+        }
+    end
   end
 end
