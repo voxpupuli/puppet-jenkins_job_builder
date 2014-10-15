@@ -17,6 +17,9 @@
 # [*service_name*]
 # The name of the jenkins service to restart when configuration changes are made
 #
+# [*job_yaml*]
+# Include this content as raw yaml for the job
+#
 #  === Examples
 #
 # Installing jenkins_job_builder::job to configure a job
@@ -48,12 +51,18 @@
 define jenkins_job_builder::job (
   $config = {},
   $delay = 0,
-  $service_name = 'jenkins'
+  $service_name = 'jenkins',
+  $job_yaml = '',
 ) {
 
+  if $config != {} {
+    $content = template('jenkins_job_builder/jenkins-job-yaml.erb')
+  } else {
+    $content = $job_yaml
+  }
   file { "/tmp/jenkins-${name}.yaml":
     ensure  => present,
-    content => template('jenkins_job_builder/jenkins-job-yaml.erb'),
+    content => $content,
     notify  => Exec["manage jenkins job - ${name}"]
   }
 
