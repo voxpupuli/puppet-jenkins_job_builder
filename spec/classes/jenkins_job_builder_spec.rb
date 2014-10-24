@@ -74,4 +74,36 @@ describe 'jenkins_job_builder' do
       it { expect { should contain_package('jenkins_job_builder') }.to raise_error(Puppet::Error, /Nexenta not supported/) }
     end
   end
+
+  context 'creates jobs' do
+    describe 'jenkins_job_builder with a hash of jobs' do
+      let(:params) {{
+        :jobs => {
+          'test01' => {
+            'config' => {
+              'name'        => 'test01',
+              'description' => 'the first jenkins job'
+            }
+          },
+          'test02' => {
+            'config' => {
+              'name'        => 'test02',
+              'description' => 'the second jenkins job'
+            }
+          }
+        }
+      }}
+      let(:facts) {{
+        :osfamily => 'Debian',
+      }}
+
+      it { should contain_file('/tmp/jenkins-test01.yaml').with(
+        'content' => "---\n- job:\n    description: \"the first jenkins job\"\n    name: \"test01\"\n"
+      )}
+
+      it { should contain_file('/tmp/jenkins-test02.yaml').with(
+        'content' => "---\n- job:\n    description: \"the second jenkins job\"\n    name: \"test02\"\n"
+      )}
+    end
+  end
 end

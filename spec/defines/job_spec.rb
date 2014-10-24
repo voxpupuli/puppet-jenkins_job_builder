@@ -34,7 +34,7 @@ describe 'jenkins_job_builder::job', :type => :define do
     describe 'custom config' do
       let(:title) { 'test' }
       let(:params) {{
-        'config' => { 'test' => { 'name' => 'test' } }
+        'config' => { 'name' => 'test' }
       }}
 
       it { should contain_file('/tmp/jenkins-test.yaml').with(

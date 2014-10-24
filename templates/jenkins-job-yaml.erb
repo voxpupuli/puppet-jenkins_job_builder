@@ -1,20 +1,20 @@
 <%-
     require 'yaml'
-    
+
     def escape_quotes(s)
       substr = s
       substr = s[1..-1] if s[0].eql?('"')
       substr.gsub!(/"/){ '\"' }
       "\"#{substr}\""
     end
-    
+
     def sort_yaml(obj, nest=0)
       yaml_string = ""
       if obj.instance_of?(Array)
         obj.each do |element|
           if element.instance_of?(Hash)
             one = element.keys.sort!
-            yaml_string << "\n -job:"
+            yaml_string << "\n- job:"
             one.each do |o|
               if nest > 0
                 space = " "*(nest+4)
@@ -30,7 +30,7 @@
         end
       elsif obj.instance_of?(Hash)
         one = obj.keys.sort!
-        yaml_string << "\n -job:"
+        yaml_string << "\n- job:"
         one.each do |o|
           yaml_string << "\n" + (" "*(nest+4)) + "#{o}:"
           yaml_string << sort_yaml(obj["#{o}"], nest+1)
@@ -40,7 +40,7 @@
       end
       return yaml_string
     end
-    
+
     if !@config.nil? and !@config.empty?
 -%>---<%= sort_yaml(@config, 0) %>
 <%- end -%>
