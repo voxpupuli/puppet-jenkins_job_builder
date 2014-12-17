@@ -50,7 +50,7 @@
 #
 define jenkins_job_builder::job (
   $config = {},
-  $delay = 0,
+  $delay = 5,
   $service_name = 'jenkins',
   $job_yaml = '',
 ) {
