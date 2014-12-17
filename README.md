@@ -90,6 +90,7 @@ This module is tested on the following platforms:
 
 * CentOS 5
 * CentOS 6
+* CentOS 7
 * Ubuntu 10.04.4
 * Ubuntu 12.04.2
 * Ubuntu 13.10

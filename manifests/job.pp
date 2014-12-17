@@ -50,7 +50,7 @@
 #
 define jenkins_job_builder::job (
   $config = {},
-  $delay = 0,
+  $delay = 5,
   $service_name = 'jenkins',
   $job_yaml = '',
 ) {
@@ -60,6 +60,7 @@ define jenkins_job_builder::job (
   } else {
     $content = $job_yaml
   }
+
   file { "/tmp/jenkins-${name}.yaml":
     ensure  => present,
     content => $content,
@@ -67,8 +68,10 @@ define jenkins_job_builder::job (
   }
 
   exec { "manage jenkins job - ${name}":
-    command     => "/bin/sleep ${delay} && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-${name}.yaml",
+    command     => "/bin/sleep ${delay} && jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-${name}.yaml",
+    path        => ['/bin','/sbin','/usr/bin','/usr/sbin','/usr/local/bin','/usr/local/sbin'],
     refreshonly => true,
+    logoutput   => true,
     require     => Service[$service_name]
   }
 

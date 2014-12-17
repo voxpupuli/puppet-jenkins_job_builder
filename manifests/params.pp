@@ -18,17 +18,22 @@ class jenkins_job_builder::params {
   $service = 'jenkins'
 
   case $::osfamily {
+
     'RedHat', 'Amazon': {
-      $python_packages = [ 'python', 'python-devel', 'python-pip', 'python-argparse']
+      if '7' == $operatingsystemmajrelease {
+        $python_packages =  [ 'python', 'python-devel', 'python-pip' ]
+      } else {
+        $python_packages = [ 'python', 'python-dev', 'python-pip', 'python-argparse' ]
+      }
     }
-    debian: {
+
+    'Debian': {
       $python_packages = [ 'python', 'python-dev', 'python-pip' ]
     }
+
     default: {
       fail("${::operatingsystem} not supported")
     }
   }
-
-
 
 }

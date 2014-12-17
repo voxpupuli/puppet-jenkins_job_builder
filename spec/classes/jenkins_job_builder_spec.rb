@@ -13,8 +13,28 @@ describe 'jenkins_job_builder' do
 
         it { should contain_class('jenkins_job_builder::params') }
 
-        ['python', 'python-pip', 'pyyaml', 'python-argparse'].each do |dep|
+        ['python', 'python-pip', 'pyyaml'].each do |dep|
           it { should contain_package(dep).with_ensure('present') }
+        end
+
+        
+        ['python', 'python-pip', 'pyyaml'].each do |dep|
+          it { should contain_package(dep).with_ensure('present') }
+        end
+
+        if 'RedHat' == osfamily
+          let(:facts) {{ :operatingsystemmajrelease => '7', :osfamily => 'RedHat' }}
+          it { should_not contain_package('python-argparse') }
+        end
+
+        if 'Debian' == osfamily 
+          let(:facts) {{ :osfamily => 'Debian' }}
+          it { should_not contain_package('python-argparse') }
+        end
+
+        if 'Redhat' == osfamily
+          lets(:facts) {{ :operatingsystemmajrelease => '6', osfmaily => 'RedHat' }}
+          it { should contain_package(python-argparse) }
         end
 
         it { should contain_class('jenkins_job_builder::install').that_comes_before('jenkins_job_builder::config') }

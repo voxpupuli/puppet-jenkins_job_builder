@@ -1,0 +1,10 @@
+HOSTS:
+  centos-7.0-x64:
+    roles:
+      - master
+    platform: el-7.0-x86_64
+    box : centos-7.0-x64-vbox436-nocm
+    box_url : https://vagrantcloud.com/puppetlabs/boxes/centos-7.0-64-nocm/versions/1.0.0/providers/virtualbox.box
+    hypervisor : vagrant
+CONFIG:
+  type: foss
