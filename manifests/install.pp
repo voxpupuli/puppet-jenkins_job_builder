@@ -16,7 +16,7 @@ class jenkins_job_builder::install(
   }
 
   ensure_resource('package', $jenkins_job_builder::params::python_packages, { 'ensure' => 'present' })
-  ensure_resource('package', 'pyyaml', { 'ensure' => 'present', 'provider' => 'pip', 'require' => $jenkins_job_builder::params::python_packages })
+  ensure_resource('package', 'pyyaml', { 'ensure' => 'present', 'provider' => 'pip', 'require' => Package[$jenkins_job_builder::params::python_packages] })
 
   package { 'jenkins-job-builder':
     ensure   => $version,
