@@ -40,13 +40,17 @@
 # }
 #
 class jenkins_job_builder(
-  $version = $jenkins_job_builder::params::version,
-  $jobs = $jenkins_job_builder::params::jobs,
-  $user = $jenkins_job_builder::params::user,
-  $password = $jenkins_job_builder::params::password,
-  $hipchat_token = $jenkins_job_builder::params::hipchat_token,
-  $jenkins_url = $jenkins_job_builder::params::jenkins_url,
-  $service = 'jenkins'
+  $version          = $jenkins_job_builder::params::version,
+  $jobs             = $jenkins_job_builder::params::jobs,
+  $user             = $jenkins_job_builder::params::user,
+  $password         = $jenkins_job_builder::params::password,
+  $hipchat_token    = $jenkins_job_builder::params::hipchat_token,
+  $jenkins_url      = $jenkins_job_builder::params::jenkins_url,
+  $service          = 'jenkins',
+  $install_from_git = $jenkins_job_builder::params::install_from_git,
+  $git_revision     = $jenkins_job_builder::params::git_revision,
+  $git_url          = $jenkins_job_builder::params::git_url,
+
 ) inherits jenkins_job_builder::params {
 
   validate_re($::osfamily,'RedHat|Debian',"${::osfamily} not supported")
@@ -56,6 +60,9 @@ class jenkins_job_builder(
   validate_string($hipchat_token)
   validate_string($jenkins_url)
   validate_string($version)
+  validate_string($git_revision)
+  validate_string($git_url)
+  validate_bool($install_from_git)
 
   class {'jenkins_job_builder::install': } ->
   class {'jenkins_job_builder::config': } ->
