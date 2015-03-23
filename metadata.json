@@ -1,12 +1,12 @@
 {
-  "name":         "opentable-jenkins_job_builder",
-  "version":      "1.1.0",
-  "author":       "opentable",
-  "license":      "MIT",
+  "name":         "puppet-jenkins_job_builder",
+  "version":      "1.1.1",
+  "author":       "puppet-community",
+  "license":      "Apache 2.0",
   "summary":      "Module for managing the openstack jenkins_job_builder tool",
-  "source":       "git://github.com/opentable/puppet-jenkins_job_builder.git",
-  "project_page": "https://github.com/opentable/puppet-jenkins_job_builder",
-  "issues_url":   "https://github.com/opentable/puppet-jenkins_job_builder/issues",
+  "source":       "git://github.com/puppet-community/puppet-jenkins_job_builder.git",
+  "project_page": "https://github.com/puppet-community/puppet-jenkins_job_builder",
+  "issues_url":   "https://github.com/puppet-community/puppet-jenkins_job_builder/issues",
   "tags":         ["jenkins"],
   "operatingsystem_support": [
       {
