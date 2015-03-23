@@ -26,7 +26,7 @@ class jenkins_job_builder::params {
       }
     }
     debian: {
-      $python_packages = [ 'python', 'python-dev', 'python-pip' ]
+      $python_packages = [ 'python', 'python-dev', 'python-pip', 'python-argparse' ]
     }
     default: {
       fail("${::operatingsystem} not supported")
