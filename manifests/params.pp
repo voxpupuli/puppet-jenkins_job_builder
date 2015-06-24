@@ -22,7 +22,11 @@ class jenkins_job_builder::params {
 
   case $::osfamily {
     'RedHat', 'Amazon': {
-      $python_packages = [ 'python', 'python-devel', 'python-pip', 'python-argparse']
+      if $operatingsystemmajrelease == 7 {
+        $python_packages = [ 'python', 'python-devel', 'python-pip' ]
+      } else {
+        $python_packages = [ 'python', 'python-devel', 'python-pip', 'python-argparse']
+      }
     }
     debian: {
       $python_packages = [ 'python', 'python-dev', 'python-pip', 'python-argparse' ]
