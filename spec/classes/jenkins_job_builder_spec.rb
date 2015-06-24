@@ -82,11 +82,28 @@ describe 'jenkins_job_builder' do
     end
   end
 
+  context 'install from git' do
+    describe 'jenkins_job_builder installed from git' do
+      let(:params) {{
+        :install_from_git => true
+      }}
+      let(:facts) {{
+        :osfamily => 'Debian'
+      }}
+
+      it { should contain_vcsrepo('/opt/jenkins_job_builder').with(
+        'ensure'   => 'latest',
+        'provider' => 'git'
+      )}
+
+    end
+  end
+
   context 'unsupported operating system' do
     describe 'jenkins_job_builder class without any parameters on Solaris/Nexenta' do
       let(:facts) {{
         :osfamily        => 'Solaris',
-        :operatingsystem => 'Nexenta',
+        :operatingsystem => 'Nexenta'
       }}
 
       it { expect { should contain_package('jenkins_job_builder') }.to raise_error(Puppet::Error, /Nexenta not supported/) }
@@ -124,4 +141,5 @@ describe 'jenkins_job_builder' do
       )}
     end
   end
+
 end

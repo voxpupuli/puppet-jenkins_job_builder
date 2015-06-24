@@ -16,6 +16,9 @@ class jenkins_job_builder::params {
   $jenkins_url = 'http://localhost:8080'
   $version = 'latest'
   $service = 'jenkins'
+  $install_from_git = false
+  $git_revision     = 'master'
+  $git_url          = 'https://git.openstack.org/openstack-infra/jenkins-job-builder'
 
   case $::osfamily {
     'RedHat', 'Amazon': {
