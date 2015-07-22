@@ -5,11 +5,15 @@
 # == Class jenkins_job_builder::install
 #
 # This class is meant to be called from jenkins_job_builder
-# It installs the pip package and all required dependencies
+# It installs all packages and all required dependencies.
+#
+# You can choose for git, pip, or system pkgs as the primary
+# package source.
 #
 class jenkins_job_builder::install(
   $version          = $jenkins_job_builder::version,
   $install_from_git = $jenkins_job_builder::install_from_git,
+  $install_from_pkg = $jenkins_job_builder::install_from_pkg,
   $git_url          = $jenkins_job_builder::git_url,
   $git_revision     = $jenkins_job_builder::git_revision,
 ) {
@@ -19,7 +23,6 @@ class jenkins_job_builder::install(
   }
 
   ensure_resource('package', $jenkins_job_builder::params::python_packages, { 'ensure' => 'present' })
-  ensure_resource('package', 'pyyaml', { 'ensure' => 'present', 'provider' => 'pip', 'require' => 'Package[python]'})
 
   if $install_from_git {
 
@@ -35,6 +38,12 @@ class jenkins_job_builder::install(
       path        => '/usr/local/bin:/usr/bin:/bin/',
       refreshonly => true,
       subscribe   => Vcsrepo['/opt/jenkins_job_builder'],
+    }
+
+  } elsif $install_from_pkg {
+
+    package { $jenkins_job_builder::params::jjb_packages:
+      ensure => $version,
     }
 
   } else {

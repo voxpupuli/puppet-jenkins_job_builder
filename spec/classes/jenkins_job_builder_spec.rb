@@ -64,7 +64,19 @@ describe 'jenkins_job_builder' do
         :osfamily => 'Debian',
       }}
 
-      ['python', 'python-pip', 'pyyaml'].each do |dep|
+      ['python', 'python-pip', 'python-yaml'].each do |dep|
+        it { should contain_package(dep).with_ensure('present') }
+      end
+
+    end
+    describe "jenkins_job_builder class without any parameters on a 'RedHat' OS version 6" do
+      let(:params) {{ }}
+      let(:facts) {{
+        :osfamily               => 'RedHat',
+        :operatingsystemrelease => '6',
+      }}
+
+      ['python', 'python-pip', 'PyYAML', 'python-argparse'].each do |dep|
         it { should contain_package(dep).with_ensure('present') }
       end
 
@@ -72,10 +84,11 @@ describe 'jenkins_job_builder' do
     describe "jenkins_job_builder class without any parameters on a 'RedHat' OS" do
       let(:params) {{ }}
       let(:facts) {{
-        :osfamily => 'RedHat',
+        :osfamily               => 'RedHat',
+        :operatingsystemrelease => '7',
       }}
 
-      ['python', 'python-pip', 'pyyaml', 'python-argparse'].each do |dep|
+      ['python', 'python-pip', 'PyYAML'].each do |dep|
         it { should contain_package(dep).with_ensure('present') }
       end
 
@@ -99,11 +112,49 @@ describe 'jenkins_job_builder' do
     end
   end
 
+  context 'install from pkg' do
+    describe "jenkins_job_builder installed from pkg on 'Debian' OS" do
+      let(:params) {{
+        :install_from_pkg => true
+      }}
+      let(:facts) {{
+        :osfamily => 'Debian'
+      }}
+
+      it { should contain_package('jenkins-job-builder').with_ensure('latest') }
+
+    end
+    describe "jenkins_job_builder installed from pkg on 'RedHat' OS version el6" do
+      let(:params) {{
+        :install_from_pkg => true
+      }}
+      let(:facts) {{
+        :osfamily               => 'RedHat',
+        :operatingsystemrelease => '6',
+      }}
+
+      it { should contain_package('jenkins-job-builder').with_ensure('latest') }
+
+    end
+    describe "jenkins_job_builder installed from pkg on 'RedHat' OS" do
+      let(:params) {{
+        :install_from_pkg => true
+      }}
+      let(:facts) {{
+        :osfamily               => 'RedHat',
+        :operatingsystemrelease => '7',
+      }}
+
+      it { should contain_package('python-jenkins-job-builder').with_ensure('latest') }
+
+    end
+  end
+
   context 'unsupported operating system' do
     describe 'jenkins_job_builder class without any parameters on Solaris/Nexenta' do
       let(:facts) {{
         :osfamily        => 'Solaris',
-        :operatingsystem => 'Nexenta'
+        :operatingsystem => 'Nexenta',
       }}
 
       it { expect { should contain_package('jenkins_job_builder') }.to raise_error(Puppet::Error, /Nexenta not supported/) }
