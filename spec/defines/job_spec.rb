@@ -13,7 +13,9 @@ describe 'jenkins_job_builder::job', :type => :define do
         it { should contain_exec('manage jenkins job - test').with(
           'command' => '/bin/sleep 0 && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-test.yaml',
           'refreshonly' => 'true',
-          'require' => 'Service[jenkins]'
+          'require' => 'Service[jenkins]',
+          'tries' => '5',
+          'try_sleep' => '15',
         )}
       end
     end
@@ -28,6 +30,20 @@ describe 'jenkins_job_builder::job', :type => :define do
 
       it { should contain_exec('manage jenkins job - test').with(
         'command' => '/bin/sleep 5 && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-test.yaml'
+      )}
+    end
+
+    describe 'with retry mechanism' do
+      let(:title) { 'test' }
+      let(:params) {{
+        'tries' => '10',
+        'try_sleep' => '45',
+      }}
+
+      it { should contain_exec('manage jenkins job - test').with(
+        'command' => '/bin/sleep 0 && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-test.yaml',
+        'tries' => '10',
+        'try_sleep' => '45',
       )}
     end
 
