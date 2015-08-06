@@ -133,11 +133,11 @@ describe 'jenkins_job_builder' do
       }}
 
       it { should contain_file('/tmp/jenkins-test01.yaml').with(
-        'content' => "---\n- job:\n    description: \"the first jenkins job\"\n    name: \"test01\"\n"
+        'content' => "--- \n  - job: \n      name: test01\n      description: \"the first jenkins job\"\n"
       )}
 
       it { should contain_file('/tmp/jenkins-test02.yaml').with(
-        'content' => "---\n- job:\n    description: \"the second jenkins job\"\n    name: \"test02\"\n"
+        'content' => "--- \n  - job: \n      name: test02\n      description: \"the second jenkins job\"\n"
       )}
     end
   end
