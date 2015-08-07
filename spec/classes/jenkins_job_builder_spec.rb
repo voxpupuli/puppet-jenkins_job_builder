@@ -129,7 +129,7 @@ describe 'jenkins_job_builder' do
         }
       }}
       let(:facts) {{
-        :osfamily => 'Debian',
+        :osfamily => 'Debian'
       }}
 
       it { should contain_file('/tmp/jenkins-test01.yaml').with(
