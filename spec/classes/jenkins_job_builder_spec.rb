@@ -6,7 +6,8 @@ describe 'jenkins_job_builder' do
       describe "jenkins_job_builder class without any parameters on #{osfamily}" do
         let(:params) {{ }}
         let(:facts) {{
-          :osfamily => osfamily,
+          :osfamily               => osfamily,
+          :operatingsystemrelease => '6',
         }}
 
         it { should compile.with_all_deps }
@@ -61,7 +62,8 @@ describe 'jenkins_job_builder' do
     describe "jenkins_job_builder class without any parameters on a 'Debian' OS" do
       let(:params) {{ }}
       let(:facts) {{
-        :osfamily => 'Debian',
+        :osfamily               => 'Debian',
+        :operatingsystemrelease => 'should_not_be_used',
       }}
 
       ['python', 'python-pip', 'python-yaml'].each do |dep|
@@ -101,7 +103,8 @@ describe 'jenkins_job_builder' do
         :install_from_git => true
       }}
       let(:facts) {{
-        :osfamily => 'Debian'
+        :osfamily               => 'Debian',
+        :operatingsystemrelease => 'should_not_be_used',
       }}
 
       it { should contain_vcsrepo('/opt/jenkins_job_builder').with(
@@ -118,7 +121,8 @@ describe 'jenkins_job_builder' do
         :install_from_pkg => true
       }}
       let(:facts) {{
-        :osfamily => 'Debian'
+        :osfamily               => 'Debian',
+        :operatingsystemrelease => 'should_not_be_used',
       }}
 
       it { should contain_package('jenkins-job-builder').with_ensure('latest') }
@@ -153,8 +157,9 @@ describe 'jenkins_job_builder' do
   context 'unsupported operating system' do
     describe 'jenkins_job_builder class without any parameters on Solaris/Nexenta' do
       let(:facts) {{
-        :osfamily        => 'Solaris',
-        :operatingsystem => 'Nexenta',
+        :osfamily               => 'Solaris',
+        :operatingsystem        => 'Nexenta',
+        :operatingsystemrelease => 'should_not_be_used',
       }}
 
       it { expect { should contain_package('jenkins_job_builder') }.to raise_error(Puppet::Error, /Nexenta not supported/) }
@@ -180,7 +185,8 @@ describe 'jenkins_job_builder' do
         }
       }}
       let(:facts) {{
-        :osfamily => 'Debian'
+        :osfamily               => 'Debian',
+        :operatingsystemrelease => 'should_not_be_used',
       }}
 
       it { should contain_file('/tmp/jenkins-test01.yaml').with(
