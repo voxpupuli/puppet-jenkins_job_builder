@@ -11,11 +11,12 @@ describe 'jenkins_job_builder::job', :type => :define do
         it { should contain_file('/tmp/jenkins-test.yaml').with_content('') }
 
         it { should contain_exec('manage jenkins job - test').with(
-          'command' => '/bin/sleep 0 && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-test.yaml',
+          'command'     => 'sleep 0 && jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-test.yaml',
+          'path'        => '/usr/local/bin:/usr/bin:/bin',
           'refreshonly' => 'true',
-          'require' => 'Service[jenkins]',
-          'tries' => '5',
-          'try_sleep' => '15'
+          'require'     => 'Service[jenkins]',
+          'tries'       => '5',
+          'try_sleep'   => '15'
         )}
       end
     end
@@ -29,20 +30,20 @@ describe 'jenkins_job_builder::job', :type => :define do
       }}
 
       it { should contain_exec('manage jenkins job - test').with(
-        'command' => '/bin/sleep 5 && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-test.yaml'
+        'command' => 'sleep 5 && jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-test.yaml'
       )}
     end
 
     describe 'with retry mechanism' do
       let(:title) { 'test' }
       let(:params) {{
-        'tries' => '10',
+        'tries'     => '10',
         'try_sleep' => '45'
       }}
 
       it { should contain_exec('manage jenkins job - test').with(
-        'command' => '/bin/sleep 0 && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-test.yaml',
-        'tries' => '10',
+        'command'   => 'sleep 0 && jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-test.yaml',
+        'tries'     => '10',
         'try_sleep' => '45'
       )}
     end
@@ -53,18 +54,18 @@ describe 'jenkins_job_builder::job', :type => :define do
         'config' => { 'name' => 'test' }
       }}
 
-      it { should contain_file('/tmp/jenkins-test.yaml').with(
-        'content' => "--- \n  - job: \n      name: test\n"
+      it { should contain_file('/tmp/jenkins-test.yaml').with_content(
+        "--- \n  - job: \n      name: test\n"
       )}
     end
 
     describe 'job yaml' do
       let(:title) {'test'}
       let(:params) {{
-        'job_yaml' => "--- \n  - job: \n      name: test\n"
+        'job_yaml' => "---\n- job:\n    name: test\n"
       }}
       it { should contain_file('/tmp/jenkins-test.yaml').with(
-        'content' => "--- \n  - job: \n      name: test\n"
+        'content' => "---\n- job:\n    name: test\n"
       )}
     end
   end

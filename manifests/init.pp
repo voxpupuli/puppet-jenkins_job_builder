@@ -47,6 +47,7 @@ class jenkins_job_builder(
   $hipchat_token    = $jenkins_job_builder::params::hipchat_token,
   $jenkins_url      = $jenkins_job_builder::params::jenkins_url,
   $service          = 'jenkins',
+  $python_packages  = $jenkins_job_builder::params::python_packages,
   $install_from_git = $jenkins_job_builder::params::install_from_git,
   $git_revision     = $jenkins_job_builder::params::git_revision,
   $git_url          = $jenkins_job_builder::params::git_url,
