@@ -8,11 +8,11 @@
 # It sets the global ini file used by jenkins_job_builder
 #
 class jenkins_job_builder::config(
-  $jobs = $jenkins_job_builder::jobs,
-  $user = $jenkins_job_builder::user,
-  $password = $jenkins_job_builder::password,
+  $jobs          = $jenkins_job_builder::jobs,
+  $user          = $jenkins_job_builder::user,
+  $password      = $jenkins_job_builder::password,
   $hipchat_token = $jenkins_job_builder::hipchat_token,
-  $jenkins_url = $jenkins_job_builder::jenkins_url
+  $jenkins_url   = $jenkins_job_builder::jenkins_url
 ) {
 
   if $caller_module_name != $module_name {

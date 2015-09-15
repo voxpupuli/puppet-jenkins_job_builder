@@ -49,12 +49,12 @@
 # }
 #
 define jenkins_job_builder::job (
-  $config = {},
-  $delay = 0,
+  $config       = {},
+  $delay        = 0,
   $service_name = 'jenkins',
-  $job_yaml = '',
-  $tries = '5',
-  $try_sleep = '15',
+  $job_yaml     = '',
+  $tries        = '5',
+  $try_sleep    = '15',
 ) {
 
   if $config != {} {
