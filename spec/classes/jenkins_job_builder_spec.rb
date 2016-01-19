@@ -185,6 +185,27 @@ describe 'jenkins_job_builder' do
     end
   end
 
+  context 'explicit timeout value' do
+    describe 'jenkins_job_builder with timeout value specified' do
+      let(:params) {{
+        :timeout => '25'
+      }}
+      let(:facts) {{
+        :osfamily => 'RedHat',
+      }}
+
+      it { should contain_ini_setting('jenkins-jobs timeout').with(
+        'ensure'  => 'present',
+        'path'    => '/etc/jenkins_jobs/jenkins_jobs.ini',
+        'section' => 'jenkins',
+        'setting' => 'timeout',
+        'value'   => 25,
+        'require' => 'File[/etc/jenkins_jobs/jenkins_jobs.ini]'
+      )}
+
+    end
+  end
+
   context 'unsupported operating system' do
     describe 'jenkins_job_builder class without any parameters on Solaris/Nexenta' do
       let(:facts) do

@@ -58,6 +58,9 @@ The user used to authenticate to the Jenkins instance.
 ####`password`
 The password used to authenticate to the Jenkins instance.
 
+#### `timeout`
+(Optional) The connection timeout (in seconds) to the Jenkins server. If `timeout` is unset it will remove any existing timeout values in the config file.
+
 ####`hipchat_token`
 If using the jenkins hipchat plugin, this is the token that should be specified in the global config.
 
