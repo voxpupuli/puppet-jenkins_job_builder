@@ -15,7 +15,7 @@
 
 Install [jenkins_job_builder](ci.openstack.org/jenkins-job-builder/) to allow you to manage your Jenkins jobs  
 
-[![Build Status](https://secure.travis-ci.org/opentable/puppet-jenkins_job_builder.png)](https://secure.travis-ci.org/opentable/puppet-jenkins_job_builder.png)
+[![Build Status](https://api.travis-ci.org/voxpupuli/puppet-jenkins_job_builder.png)](https://travis-ci.org/voxpupuli/puppet-jenkins_job_builder)
 
 ##Module Description
 
