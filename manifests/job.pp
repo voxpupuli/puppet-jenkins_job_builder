@@ -49,12 +49,13 @@
 # }
 #
 define jenkins_job_builder::job (
-  $config = {},
-  $delay = 0,
+  $config       = {},
+  $config_mode  = '0640',
+  $delay        = 0,
   $service_name = 'jenkins',
-  $job_yaml = '',
-  $tries = '5',
-  $try_sleep = '15',
+  $job_yaml     = '',
+  $tries        = '5',
+  $try_sleep    = '15',
 ) {
 
   if $config != {} {
@@ -64,12 +65,14 @@ define jenkins_job_builder::job (
   }
   file { "/tmp/jenkins-${name}.yaml":
     ensure  => present,
+    mode    => $config_mode,
     content => $content,
     notify  => Exec["manage jenkins job - ${name}"]
   }
 
   exec { "manage jenkins job - ${name}":
-    command     => "/bin/sleep ${delay} && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-${name}.yaml",
+    command     => "sleep ${delay} && jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-${name}.yaml",
+    path        => '/usr/local/bin:/usr/bin:/bin',
     refreshonly => true,
     tries       => $tries,
     try_sleep   => $try_sleep,

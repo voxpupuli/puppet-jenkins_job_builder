@@ -80,6 +80,19 @@ describe 'jenkins_job_builder' do
       end
 
     end
+    describe "jenkins_job_builder class without any parameters on a 'RedHat/CentOS' 7.x" do
+      let(:params) {{ }}
+      let(:facts) {{
+        :osfamily => 'RedHat',
+        :operatingsystemmajrelease => '7'
+      }}
+
+      ['python', 'python-pip', 'python-devel', 'pyyaml'].each do |dep|
+        it { should contain_package(dep).with_ensure('present') }
+      end
+      it { should_not contain_package('python-argparse') }
+
+    end
   end
 
   context 'install from git' do
@@ -132,12 +145,12 @@ describe 'jenkins_job_builder' do
         :osfamily => 'Debian'
       }}
 
-      it { should contain_file('/tmp/jenkins-test01.yaml').with(
-        'content' => "--- \n  - job: \n      name: test01\n      description: \"the first jenkins job\"\n"
+      it { should contain_file('/tmp/jenkins-test01.yaml').with_content(
+        "--- \n  - job: \n      name: test01\n      description: \"the first jenkins job\"\n"
       )}
 
-      it { should contain_file('/tmp/jenkins-test02.yaml').with(
-        'content' => "--- \n  - job: \n      name: test02\n      description: \"the second jenkins job\"\n"
+      it { should contain_file('/tmp/jenkins-test02.yaml').with_content(
+        "--- \n  - job: \n      name: test02\n      description: \"the second jenkins job\"\n"
       )}
     end
   end
