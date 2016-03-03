@@ -50,6 +50,7 @@
 #
 define jenkins_job_builder::job (
   $config       = {},
+  $config_mode  = '0640',
   $delay        = 0,
   $service_name = 'jenkins',
   $job_yaml     = '',
@@ -64,6 +65,7 @@ define jenkins_job_builder::job (
   }
   file { "/tmp/jenkins-${name}.yaml":
     ensure  => present,
+    mode    => $config_mode,
     content => $content,
     notify  => Exec["manage jenkins job - ${name}"]
   }
