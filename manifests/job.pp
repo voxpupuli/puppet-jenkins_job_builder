@@ -20,6 +20,9 @@
 # [*job_yaml*]
 # Include this content as raw yaml for the job
 #
+# [*jobs*]
+# Used if sourcing multiple jobs, templates are broken into smaller parts, etc. This enables recursion.
+#
 #  === Examples
 #
 # Installing jenkins_job_builder::job to configure a job
@@ -53,23 +56,29 @@ define jenkins_job_builder::job (
   $delay = 0,
   $service_name = 'jenkins',
   $job_yaml = '',
+  $jobs = undef,
   $tries = '5',
   $try_sleep = '15',
 ) {
 
-  if $config != {} {
-    $content = template('jenkins_job_builder/jenkins-job-yaml.erb')
+  if $jobs {
+    $jjbcmd  = "/bin/sleep ${delay} && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update -r $jobs"
   } else {
-    $content = $job_yaml
-  }
-  file { "/tmp/jenkins-${name}.yaml":
-    ensure  => present,
-    content => $content,
-    notify  => Exec["manage jenkins job - ${name}"]
+    if $config != {} {
+      $content = template('jenkins_job_builder/jenkins-job-yaml.erb')
+    } else {
+      $content = $job_yaml
+    }
+    file { "/tmp/jenkins-${name}.yaml":
+      ensure  => present,
+      content => $content,
+      notify  => Exec["manage jenkins job - ${name}"]
+    }
+    $jjbcmd = "/bin/sleep ${delay} && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-${name}.yaml"
   }
 
   exec { "manage jenkins job - ${name}":
-    command     => "/bin/sleep ${delay} && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-${name}.yaml",
+    command     => $jjbcmd,
     refreshonly => true,
     tries       => $tries,
     try_sleep   => $try_sleep,
