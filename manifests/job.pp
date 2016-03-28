@@ -62,7 +62,7 @@ define jenkins_job_builder::job (
 ) {
 
   if $jobs {
-    $jjbcmd  = "/bin/sleep ${delay} && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update -r $jobs"
+    $jjbcmd  = "/bin/sleep ${delay} && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update -r ${jobs}"
   } else {
     if $config != {} {
       $content = template('jenkins_job_builder/jenkins-job-yaml.erb')
