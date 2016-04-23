@@ -31,6 +31,14 @@
 # [*jenkins_url*]
 # The full url (including port) to the jenkins instance.
 #
+# [*install_from_git*]
+# Boolean, defaults to false. This will install JJB itself from git, but system pkgs will satisfy dependencies.
+# The behavior when install_from_git and install_from_pkg are false is to install from pip
+#
+# [*install_from_pkg*]
+# Boolean, defaults to false. Only allow system packages to satisfy installation sources. Useful for some environments that require this.
+# The behavior when install_from_git and install_from_pkg are false is to install from pip
+#
 #  === Examples
 #
 # Installing jenkins_job_builder to a specified version
@@ -48,6 +56,7 @@ class jenkins_job_builder(
   $jenkins_url      = $jenkins_job_builder::params::jenkins_url,
   $service          = 'jenkins',
   $install_from_git = $jenkins_job_builder::params::install_from_git,
+  $install_from_pkg = $jenkins_job_builder::params::install_from_pkg,
   $git_revision     = $jenkins_job_builder::params::git_revision,
   $git_url          = $jenkins_job_builder::params::git_url,
 
@@ -63,6 +72,11 @@ class jenkins_job_builder(
   validate_string($git_revision)
   validate_string($git_url)
   validate_bool($install_from_git)
+  validate_bool($install_from_pkg)
+
+  if count([$install_from_git, $install_from_pkg], true) > 1 {
+    fail("A single primary install source must be selected for ${name}")
+  }
 
   class {'jenkins_job_builder::install': } ->
   class {'jenkins_job_builder::config': } ->
