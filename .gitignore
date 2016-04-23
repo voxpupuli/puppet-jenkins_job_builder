@@ -1,9 +1,12 @@
 pkg/
 Gemfile.lock
 vendor/
+.vendor/
 spec/fixtures/
 .vagrant/
 .bundle/
 coverage/
-*.iml
+log/
 .idea/
+*.iml
+.*.sw
