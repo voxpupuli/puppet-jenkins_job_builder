@@ -50,7 +50,7 @@ class jenkins_job_builder::install(
 
     package { 'jenkins-job-builder':
       ensure   => $version,
-      provider => 'pip'
+      provider => 'pip',
     }
 
   }

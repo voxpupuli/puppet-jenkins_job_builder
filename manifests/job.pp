@@ -82,7 +82,7 @@ define jenkins_job_builder::job (
     refreshonly => true,
     tries       => $tries,
     try_sleep   => $try_sleep,
-    require     => Service[$service_name]
+    require     => Service[$service_name],
   }
 
 }
