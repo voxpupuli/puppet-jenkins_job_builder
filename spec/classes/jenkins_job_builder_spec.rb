@@ -17,7 +17,7 @@ describe 'jenkins_job_builder' do
 
         it { should contain_class('jenkins_job_builder::params') }
 
-        it { should contain_class('jenkins_job_builder::install').that_comes_before('jenkins_job_builder::config') }
+        it { should contain_class('jenkins_job_builder::install').that_comes_before('class[jenkins_job_builder::config]') }
         it { should contain_class('jenkins_job_builder::config') }
 
         it { should contain_package('jenkins-job-builder').with_ensure('latest') }
@@ -228,13 +228,13 @@ describe 'jenkins_job_builder' do
 
       it do
         should contain_file('/tmp/jenkins-test01.yaml').with(
-          'content' => "--- \n  - job: \n      name: test01\n      description: \"the first jenkins job\"\n"
+          'content' => "---\n- job:\n    name: test01\n    description: the first jenkins job\n"
       )
       end
 
       it do
         should contain_file('/tmp/jenkins-test02.yaml').with(
-          'content' => "--- \n  - job: \n      name: test02\n      description: \"the second jenkins job\"\n"
+          'content' => "---\n- job:\n    name: test02\n    description: the second jenkins job\n"
       )
       end
     end

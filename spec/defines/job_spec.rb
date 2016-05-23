@@ -68,7 +68,7 @@ describe 'jenkins_job_builder::job', type: :define do
 
       it do
         should contain_file('/tmp/jenkins-test.yaml').with(
-          'content' => "--- \n  - job: \n      name: test\n"
+          'content' => "---\n- job:\n    name: test\n"
       )
       end
     end
@@ -77,12 +77,12 @@ describe 'jenkins_job_builder::job', type: :define do
       let(:title) { 'test' }
       let(:params) do
         {
-          'job_yaml' => "--- \n  - job: \n      name: test\n"
+          'job_yaml' => "---\n- job:\n  name: test\n"
         }
       end
       it do
         should contain_file('/tmp/jenkins-test.yaml').with(
-          'content' => "--- \n  - job: \n      name: test\n"
+          'content' => "---\n- job:\n  name: test\n"
       )
       end
     end
