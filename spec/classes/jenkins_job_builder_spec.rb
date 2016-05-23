@@ -26,48 +26,51 @@ describe 'jenkins_job_builder' do
         it { should contain_file('/etc/jenkins_jobs/jenkins_jobs.ini').with_ensure('present') }
 
         it do
-          should contain_ini_setting('jenkins-jobs user').with(
+          should contain_ini_setting('jenkins-jobs user').with({
             'ensure'  => 'present',
             'path'    => '/etc/jenkins_jobs/jenkins_jobs.ini',
             'section' => 'jenkins',
             'setting' => 'user',
             'value'   => '',
             'require' => 'File[/etc/jenkins_jobs/jenkins_jobs.ini]'
-        )
+        })
         end
 
-        it should contain_ini_setting('jenkins-jobs password').with(
+        it do
+          should contain_ini_setting('jenkins-jobs password').with({
           'ensure'  => 'present',
           'path'    => '/etc/jenkins_jobs/jenkins_jobs.ini',
           'section' => 'jenkins',
           'setting' => 'password',
           'value'   => '',
           'require' => 'File[/etc/jenkins_jobs/jenkins_jobs.ini]'
-        )
+        })
+        end
 
         it do
-          should contain_ini_setting('jenkins-jobs url').with(
+          should contain_ini_setting('jenkins-jobs url').with({
             'ensure'  => 'present',
             'path'    => '/etc/jenkins_jobs/jenkins_jobs.ini',
             'section' => 'jenkins',
             'setting' => 'url',
             'value'   => 'http://localhost:8080',
             'require' => 'File[/etc/jenkins_jobs/jenkins_jobs.ini]'
-        )
+        })
         end
 
         it do
-          should contain_ini_setting('jenkins-jobs hipchat token').with(
+          should contain_ini_setting('jenkins-jobs hipchat token').with({
             'ensure'  => 'present',
             'path'    => '/etc/jenkins_jobs/jenkins_jobs.ini',
             'section' => 'hipchat',
             'setting' => 'authtoken',
             'value'   => '',
             'require' => 'File[/etc/jenkins_jobs/jenkins_jobs.ini]'
-        )
+        })
         end
       end
     end
+
     describe "jenkins_job_builder class without any parameters on a 'Debian' OS" do
       let(:params) { {} }
       let(:facts) do
@@ -81,6 +84,7 @@ describe 'jenkins_job_builder' do
         it { should contain_package(dep).with_ensure('present') }
       end
     end
+
     describe "jenkins_job_builder class without any parameters on a 'RedHat' OS version 6" do
       let(:params) { {} }
       let(:facts) do
@@ -94,6 +98,7 @@ describe 'jenkins_job_builder' do
         it { should contain_package(dep).with_ensure('present') }
       end
     end
+
     describe "jenkins_job_builder class without any parameters on a 'RedHat' OS" do
       let(:params) { {} }
       let(:facts) do
