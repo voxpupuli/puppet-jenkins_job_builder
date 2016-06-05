@@ -1,3 +1,11 @@
+##2015-08-06 - Release 2.0.0
+###Summary
+
+  - Issue #18, use to_yaml methods instead of sort_yaml method (potentially breaking change).
+  - Issue #21, Job creation retry implementation
+  - add capability to install job_builder from git
+  - removing argparse dependency for debian
+
 ##2014-10-24 - Release 1.1.0
 ###Summary
 
