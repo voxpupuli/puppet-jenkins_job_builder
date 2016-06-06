@@ -68,7 +68,7 @@ describe 'jenkins_job_builder::job', type: :define do
 
       it do
         should contain_file('/tmp/jenkins-test.yaml').with(
-          'content' => [ 'job' => params['config']].to_yaml
+          'content' => ['job' => params['config']].to_yaml
       )
       end
     end
