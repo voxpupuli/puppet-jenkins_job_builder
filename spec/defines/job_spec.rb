@@ -1,8 +1,9 @@
+# frozen_string_literal: true
 require 'spec_helper'
 
-describe 'jenkins_job_builder::job', :type => :define do
+describe 'jenkins_job_builder::job', type: :define do
   context 'supported operating systems' do
-    ['Debian', 'RedHat'].each do |osfamily|
+    %w(Debian RedHat).each do |osfamily|
       describe "jenkins_job_builder::job define without any parameters on #{osfamily}" do
         let(:title) { 'test' }
 
@@ -10,13 +11,15 @@ describe 'jenkins_job_builder::job', :type => :define do
 
         it { should contain_file('/tmp/jenkins-test.yaml').with_content('') }
 
-        it { should contain_exec('manage jenkins job - test').with(
-          'command' => '/bin/sleep 0 && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-test.yaml',
-          'refreshonly' => 'true',
-          'require' => 'Service[jenkins]',
-          'tries' => '5',
-          'try_sleep' => '15'
-        )}
+        it do
+          should contain_exec('manage jenkins job - test').with(
+            'command' => '/bin/sleep 0 && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-test.yaml',
+            'refreshonly' => 'true',
+            'require' => 'Service[jenkins]',
+            'tries' => '5',
+            'try_sleep' => '15'
+        )
+        end
       end
     end
   end
@@ -24,48 +27,64 @@ describe 'jenkins_job_builder::job', :type => :define do
   context 'supported operating systems - params' do
     describe 'increased delay' do
       let(:title) { 'test' }
-      let(:params) {{
-        'delay' => '5'
-      }}
+      let(:params) do
+        {
+          'delay' => '5'
+        }
+      end
 
-      it { should contain_exec('manage jenkins job - test').with(
-        'command' => '/bin/sleep 5 && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-test.yaml'
-      )}
+      it do
+        should contain_exec('manage jenkins job - test').with(
+          'command' => '/bin/sleep 5 && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-test.yaml'
+      )
+      end
     end
 
     describe 'with retry mechanism' do
       let(:title) { 'test' }
-      let(:params) {{
-        'tries' => '10',
-        'try_sleep' => '45'
-      }}
+      let(:params) do
+        {
+          'tries' => '10',
+          'try_sleep' => '45'
+        }
+      end
 
-      it { should contain_exec('manage jenkins job - test').with(
-        'command' => '/bin/sleep 0 && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-test.yaml',
-        'tries' => '10',
-        'try_sleep' => '45'
-      )}
+      it do
+        should contain_exec('manage jenkins job - test').with(
+          'command' => '/bin/sleep 0 && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-test.yaml',
+          'tries' => '10',
+          'try_sleep' => '45'
+      )
+      end
     end
 
     describe 'custom config' do
       let(:title) { 'test' }
-      let(:params) {{
-        'config' => { 'name' => 'test' }
-      }}
+      let(:params) do
+        {
+          'config' => { 'name' => 'test' }
+        }
+      end
 
-      it { should contain_file('/tmp/jenkins-test.yaml').with(
-        'content' => "--- \n  - job: \n      name: test\n"
-      )}
+      it do
+        should contain_file('/tmp/jenkins-test.yaml').with(
+          'content' => ['job' => params['config']].to_yaml
+      )
+      end
     end
 
     describe 'job yaml' do
-      let(:title) {'test'}
-      let(:params) {{
-        'job_yaml' => "--- \n  - job: \n      name: test\n"
-      }}
-      it { should contain_file('/tmp/jenkins-test.yaml').with(
-        'content' => "--- \n  - job: \n      name: test\n"
-      )}
+      let(:title) { 'test' }
+      let(:params) do
+        {
+          'job_yaml' => "---\n- job:\n  name: test\n"
+        }
+      end
+      it do
+        should contain_file('/tmp/jenkins-test.yaml').with(
+          'content' => "---\n- job:\n  name: test\n"
+      )
+      end
     end
   end
 end

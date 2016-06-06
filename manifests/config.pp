@@ -20,12 +20,12 @@ class jenkins_job_builder::config(
   }
 
   file { '/etc/jenkins_jobs':
-    ensure => directory
+    ensure => directory,
   }
 
   file { '/etc/jenkins_jobs/jenkins_jobs.ini':
     ensure  => present,
-    require => File['/etc/jenkins_jobs']
+    require => File['/etc/jenkins_jobs'],
   }
 
   ini_setting { 'jenkins-jobs user':
@@ -34,7 +34,7 @@ class jenkins_job_builder::config(
     section => 'jenkins',
     setting => 'user',
     value   => $user,
-    require => File['/etc/jenkins_jobs/jenkins_jobs.ini']
+    require => File['/etc/jenkins_jobs/jenkins_jobs.ini'],
   }
 
   ini_setting { 'jenkins-jobs password':
@@ -43,7 +43,7 @@ class jenkins_job_builder::config(
     section => 'jenkins',
     setting => 'password',
     value   => $password,
-    require => File['/etc/jenkins_jobs/jenkins_jobs.ini']
+    require => File['/etc/jenkins_jobs/jenkins_jobs.ini'],
   }
 
   ini_setting { 'jenkins-jobs url':
@@ -52,7 +52,7 @@ class jenkins_job_builder::config(
     section => 'jenkins',
     setting => 'url',
     value   => $jenkins_url,
-    require => File['/etc/jenkins_jobs/jenkins_jobs.ini']
+    require => File['/etc/jenkins_jobs/jenkins_jobs.ini'],
   }
 
   ini_setting { 'jenkins-jobs hipchat token':
@@ -61,7 +61,7 @@ class jenkins_job_builder::config(
     section => 'hipchat',
     setting => 'authtoken',
     value   => $hipchat_token,
-    require => File['/etc/jenkins_jobs/jenkins_jobs.ini']
+    require => File['/etc/jenkins_jobs/jenkins_jobs.ini'],
   }
 
   create_resources('jenkins_job_builder::job', $jobs)

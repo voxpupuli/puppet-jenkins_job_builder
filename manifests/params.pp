@@ -33,7 +33,7 @@ class jenkins_job_builder::params {
         $jjb_packages    = [ 'python-jenkins-job-builder']
       }
     }
-    debian: {
+    'debian': {
       $python_packages = [ 'python', 'python-dev', 'python-pip', 'python-argparse', 'python-yaml' ]
       $jjb_packages    = [ 'jenkins-job-builder']
     }

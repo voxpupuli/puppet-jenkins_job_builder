@@ -72,7 +72,7 @@ define jenkins_job_builder::job (
     file { "/tmp/jenkins-${name}.yaml":
       ensure  => present,
       content => $content,
-      notify  => Exec["manage jenkins job - ${name}"]
+      notify  => Exec["manage jenkins job - ${name}"],
     }
     $jjbcmd = "/bin/sleep ${delay} && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-${name}.yaml"
   }
@@ -82,7 +82,7 @@ define jenkins_job_builder::job (
     refreshonly => true,
     tries       => $tries,
     try_sleep   => $try_sleep,
-    require     => Service[$service_name]
+    require     => Service[$service_name],
   }
 
 }
