@@ -228,13 +228,13 @@ describe 'jenkins_job_builder' do
 
       it do
         should contain_file('/tmp/jenkins-test01.yaml').with(
-          'content' => "---\n- job:\n    name: test01\n    description: the first jenkins job\n"
+          'content' => [ 'job' => params[:jobs]['test01']['config']].to_yaml
       )
       end
 
       it do
         should contain_file('/tmp/jenkins-test02.yaml').with(
-          'content' => "---\n- job:\n    name: test02\n    description: the second jenkins job\n"
+          'content' => [ 'job' => params[:jobs]['test02']['config']].to_yaml
       )
       end
     end
