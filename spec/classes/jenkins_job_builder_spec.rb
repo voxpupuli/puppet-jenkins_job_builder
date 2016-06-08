@@ -132,7 +132,7 @@ describe 'jenkins_job_builder' do
         should contain_vcsrepo('/opt/jenkins_job_builder').with(
           'ensure'   => 'latest',
           'provider' => 'git'
-      )
+        )
       end
     end
   end
@@ -195,7 +195,7 @@ describe 'jenkins_job_builder' do
         }
       end
 
-      it { expect { should contain_package('jenkins_job_builder') }.to raise_error(Puppet::Error, /Nexenta not supported/) }
+      it { expect { should contain_package('jenkins_job_builder') }.to raise_error(Puppet::Error, %r{Nexenta not supported}) }
     end
   end
 
@@ -229,13 +229,13 @@ describe 'jenkins_job_builder' do
       it do
         should contain_file('/tmp/jenkins-test01.yaml').with(
           'content' => ['job' => params[:jobs]['test01']['config']].to_yaml
-      )
+        )
       end
 
       it do
         should contain_file('/tmp/jenkins-test02.yaml').with(
           'content' => ['job' => params[:jobs]['test02']['config']].to_yaml
-      )
+        )
       end
     end
   end
