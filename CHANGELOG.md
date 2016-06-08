@@ -1,8 +1,10 @@
-##2015-08-06 - Release 2.0.0
+##2016-06-08 - Release 2.0.0
 ###Summary
 
+  - Issue #17, Make install source configurable
   - Issue #18, use to_yaml methods instead of sort_yaml method (potentially breaking change).
   - Issue #21, Job creation retry implementation
+  - Issue #31, Support for sourcing jobs
   - add capability to install job_builder from git
   - removing argparse dependency for debian
 
