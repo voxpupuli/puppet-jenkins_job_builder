@@ -195,7 +195,7 @@ describe 'jenkins_job_builder' do
         }
       end
 
-      it { expect { should contain_package('jenkins_job_builder') }.to raise_error(Puppet::Error, /Nexenta not supported/) }
+      it { expect { should contain_package('jenkins_job_builder') }.to raise_error(Puppet::Error, %r{Nexenta not supported}) }
     end
   end
 
