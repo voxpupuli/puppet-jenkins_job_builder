@@ -4,4 +4,4 @@ spec/spec_helper_acceptance.rb:
 spec/acceptance/nodesets/windows-2008R2-serverstandard-x64.yml:
   unmanaged: true
 .travis.yml:
-  secret: "A7lnigQt5QnJQfafRBPEQo1xSmEarUMZtw16SdBkQFSrMb/PJuihrIHwEUOzYK1lhXArxJQ5fB1WW1QYGaVCygewQNOgUje2dUER0DyuphWoJf1woun7p5VbZE1q0SV1U8wmDitViUe1iC7q9rFTaA3oMfVUxQaD4IsrCOTQqcE="
+  secure: "A7lnigQt5QnJQfafRBPEQo1xSmEarUMZtw16SdBkQFSrMb/PJuihrIHwEUOzYK1lhXArxJQ5fB1WW1QYGaVCygewQNOgUje2dUER0DyuphWoJf1woun7p5VbZE1q0SV1U8wmDitViUe1iC7q9rFTaA3oMfVUxQaD4IsrCOTQqcE="
