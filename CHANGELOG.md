@@ -1,3 +1,14 @@
+##2016-06-08 - Release 2.0.0
+###Summary
+
+  - Dropped Ruby1.8 support!
+  - Issue #17, Make install source configurable
+  - Issue #18, use to_yaml methods instead of sort_yaml method (potentially breaking change).
+  - Issue #21, Job creation retry implementation
+  - Issue #31, Support for sourcing jobs
+  - add capability to install job_builder from git
+  - removing argparse dependency for debian
+
 ##2014-10-24 - Release 1.1.0
 ###Summary
 
@@ -28,7 +39,7 @@
  - Added missing python-argparse dependency
 
 ##2014-06-13 - Release 0.1.1
-###Summary  
+###Summary
   This release fixes some bugs in the yaml file
 
 ####Bugfixes
