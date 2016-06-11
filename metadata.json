@@ -1,27 +1,44 @@
 {
-  "name":         "puppet-jenkins_job_builder",
-  "version":      "2.0.0",
-  "author":       "voxpupuli",
-  "license":      "Apache-2.0",
-  "summary":      "Module for managing the openstack jenkins_job_builder tool",
-  "source":       "git://github.com/puppet-community/puppet-jenkins_job_builder.git",
+  "name": "puppet-jenkins_job_builder",
+  "version": "2.0.1-rc0",
+  "author": "voxpupuli",
+  "license": "Apache-2.0",
+  "summary": "Module for managing the openstack jenkins_job_builder tool",
+  "source": "git://github.com/puppet-community/puppet-jenkins_job_builder.git",
   "project_page": "https://github.com/puppet-community/puppet-jenkins_job_builder",
-  "issues_url":   "https://github.com/puppet-community/puppet-jenkins_job_builder/issues",
-  "tags":         ["jenkins"],
+  "issues_url": "https://github.com/puppet-community/puppet-jenkins_job_builder/issues",
+  "tags": [
+    "jenkins"
+  ],
   "operatingsystem_support": [
-      {
-        "operatingsystem": "RedHat",
-        "operatingsystemrelease": ["5.0","6.0"]
-      },
-      { "operatingsystem": "CentOS",
-        "operatingsystemrelease": ["5.0","6.0"]
-      },
-      { "operatingsystem": "Debian",
-        "operatingsystemrelease": ["6.0","7.0"]
-      },
-      { "operatingsystem": "Ubuntu",
-        "operatingsystemrelease": ["12.04","14.04"]
-      }
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "5.0",
+        "6.0"
+      ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "5.0",
+        "6.0"
+      ]
+    },
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "6.0",
+        "7.0"
+      ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "12.04",
+        "14.04"
+      ]
+    }
   ],
   "dependencies": [
     {
