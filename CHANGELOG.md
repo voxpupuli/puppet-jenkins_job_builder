@@ -38,7 +38,7 @@
  - Added missing python-argparse dependency
 
 ##2014-06-13 - Release 0.1.1
-###Summary  
+###Summary
   This release fixes some bugs in the yaml file
 
 ####Bugfixes
