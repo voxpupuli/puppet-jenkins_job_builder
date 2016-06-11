@@ -1,6 +1,7 @@
 ##2016-06-08 - Release 2.0.0
 ###Summary
 
+  - Dropped Ruby1.8 support!
   - Issue #17, Make install source configurable
   - Issue #18, use to_yaml methods instead of sort_yaml method (potentially breaking change).
   - Issue #21, Job creation retry implementation
