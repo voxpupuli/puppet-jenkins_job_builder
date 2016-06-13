@@ -59,10 +59,21 @@ define jenkins_job_builder::job (
   $jobs = undef,
   $tries = '5',
   $try_sleep = '15',
+  $jenkins_job_dir = '/var/lib/jenkins/jobs',
+  $idempotence = false,
 ) {
 
+  if $delay != 0 {
+    notice('The delay parameter has been replaced by retry functionality, and will be removed in a future release')
+  }
+
+  $jjb_prefix = "/bin/sleep ${delay} && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini"
+
   if $jobs {
-    $jjbcmd  = "/bin/sleep ${delay} && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update -r ${jobs}"
+    if $idempotence {
+      fail('Cannot use idempotent operation when sourcing a jobs directory')
+    }
+    $jjbcmd  = "${jjb_prefix} update -r ${jobs}"
   } else {
     if $config != {} {
       $content = template('jenkins_job_builder/jenkins-job-yaml.erb')
@@ -74,12 +85,22 @@ define jenkins_job_builder::job (
       content => $content,
       notify  => Exec["manage jenkins job - ${name}"],
     }
-    $jjbcmd = "/bin/sleep ${delay} && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-${name}.yaml"
+    $jjbcmd = "${jjb_prefix} update /tmp/jenkins-${name}.yaml"
+  }
+
+  if $idempotence {
+    $xmllint_cmd = '/bin/xmllint --c14n'
+    $unless_cmd  = "/bin/bash -c '/bin/diff <(${xmllint_cmd} ${jenkins_job_dir}/${name}/config.xml || echo '') <(${jjb_prefix} test /tmp/jenkins-${name}.yaml|${xmllint_cmd} - )'"
+    $refreshonly = undef
+  } else {
+    $unless_cmd  = undef
+    $refreshonly = true
   }
 
   exec { "manage jenkins job - ${name}":
     command     => $jjbcmd,
-    refreshonly => true,
+    refreshonly => $refreshonly,
+    unless      => $unless_cmd,
     tries       => $tries,
     try_sleep   => $try_sleep,
     require     => Service[$service_name],
