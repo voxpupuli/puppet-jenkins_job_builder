@@ -25,6 +25,9 @@
 # [*password*]
 # The password used to authenticate to the Jenkins instance.
 #
+# [*timeout*]
+# The connection timeout (in seconds) to the Jenkins server.
+#
 # [*hipchat_token*]
 # If using the jenkins hipchat plugin, this is the token that should be specified in the global config.
 #
@@ -52,6 +55,7 @@ class jenkins_job_builder(
   $jobs             = $jenkins_job_builder::params::jobs,
   $user             = $jenkins_job_builder::params::user,
   $password         = $jenkins_job_builder::params::password,
+  $timeout          = $jenkins_job_builder::params::timeout,
   $hipchat_token    = $jenkins_job_builder::params::hipchat_token,
   $jenkins_url      = $jenkins_job_builder::params::jenkins_url,
   $service          = 'jenkins',
@@ -78,7 +82,13 @@ class jenkins_job_builder(
     fail("A single primary install source must be selected for ${name}")
   }
 
+  # only validate optional params if they are present
+  if $timeout {
+    validate_integer($timeout)
+  }
+
   class {'::jenkins_job_builder::install': } ->
   class {'::jenkins_job_builder::config': } ->
+
   Class['jenkins_job_builder']
 }
