@@ -204,7 +204,6 @@ describe 'jenkins_job_builder' do
         'require' => 'File[/etc/jenkins_jobs/jenkins_jobs.ini]'
       )
       }
-
     end
   end
 
