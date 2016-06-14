@@ -188,11 +188,11 @@ describe 'jenkins_job_builder' do
   context 'explicit timeout value' do
     describe 'jenkins_job_builder with timeout value specified' do
       let(:params) {{
-        :timeout => '25'
+        timeout: '25'
       }}
       let(:facts) {{
-        :osfamily => 'RedHat',
-        :operatingsystemrelease => '7'
+        osfamily: 'RedHat',
+        operatingsystemrelease: '7'
       }}
 
       it { should contain_ini_setting('jenkins-jobs timeout').with(
