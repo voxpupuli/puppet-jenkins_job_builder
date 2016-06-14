@@ -12,6 +12,7 @@ class jenkins_job_builder::params {
   $jobs = {}
   $user = ''
   $password = ''
+  $timeout = undef
   $hipchat_token = ''
   $jenkins_url = 'http://localhost:8080'
   $version = 'latest'

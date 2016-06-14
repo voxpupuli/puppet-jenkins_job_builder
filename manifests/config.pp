@@ -11,6 +11,7 @@ class jenkins_job_builder::config(
   $jobs = $jenkins_job_builder::jobs,
   $user = $jenkins_job_builder::user,
   $password = $jenkins_job_builder::password,
+  $timeout  = $jenkins_job_builder::timeout,
   $hipchat_token = $jenkins_job_builder::hipchat_token,
   $jenkins_url = $jenkins_job_builder::jenkins_url
 ) {
@@ -52,6 +53,21 @@ class jenkins_job_builder::config(
     section => 'jenkins',
     setting => 'url',
     value   => $jenkins_url,
+    require => File['/etc/jenkins_jobs/jenkins_jobs.ini'],
+  }
+
+  if $timeout {
+    $ensure_timeout = 'present'
+  } else {
+    $ensure_timeout = 'absent'
+  }
+
+  ini_setting { 'jenkins-jobs timeout':
+    ensure  => $ensure_timeout,
+    path    => '/etc/jenkins_jobs/jenkins_jobs.ini',
+    section => 'jenkins',
+    setting => 'timeout',
+    value   => $timeout,
     require => File['/etc/jenkins_jobs/jenkins_jobs.ini'],
   }
 
