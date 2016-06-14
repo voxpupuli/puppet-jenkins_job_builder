@@ -60,9 +60,11 @@ describe 'jenkins_job_builder::job', type: :define do
 
     describe 'with idempotence enabled' do
       let(:title) { 'test' }
-      let(:params) {{
-        'idempotence' => true
-      }}
+      let(:params) do
+        {
+          'idempotence' => true
+        }
+      end
 
       it do
         should contain_exec('manage jenkins job - test').with(

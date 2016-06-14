@@ -6,7 +6,7 @@ describe 'jenkins_job_builder' do
     %w(Debian RedHat).each do |osfamily|
       describe "jenkins_job_builder class without any parameters on #{osfamily}" do
         let(:params) { {} }
-        let(:facts) do
+        let :facts do
           {
             osfamily: osfamily,
             operatingsystemrelease: '6'
@@ -73,7 +73,7 @@ describe 'jenkins_job_builder' do
 
     describe "jenkins_job_builder class without any parameters on a 'Debian' OS" do
       let(:params) { {} }
-      let(:facts) do
+      let :facts do
         {
           osfamily: 'Debian',
           operatingsystemrelease: 'should_not_be_used'
@@ -87,7 +87,7 @@ describe 'jenkins_job_builder' do
 
     describe "jenkins_job_builder class without any parameters on a 'RedHat' OS version 6" do
       let(:params) { {} }
-      let(:facts) do
+      let :facts do
         {
           osfamily: 'RedHat',
           operatingsystemrelease: '6'
@@ -101,7 +101,7 @@ describe 'jenkins_job_builder' do
 
     describe "jenkins_job_builder class without any parameters on a 'RedHat' OS" do
       let(:params) { {} }
-      let(:facts) do
+      let :facts do
         {
           osfamily: 'RedHat',
           operatingsystemrelease: '7'
@@ -116,7 +116,7 @@ describe 'jenkins_job_builder' do
 
   context 'install from git' do
     describe 'jenkins_job_builder installed from git' do
-      let(:params) do
+      let :params do
         {
           install_from_git: true
         }
@@ -139,7 +139,7 @@ describe 'jenkins_job_builder' do
 
   context 'install from pkg' do
     describe "jenkins_job_builder installed from pkg on 'Debian' OS" do
-      let(:params) do
+      let :params do
         {
           install_from_pkg: true
         }
@@ -154,12 +154,12 @@ describe 'jenkins_job_builder' do
       it { should contain_package('jenkins-job-builder').with_ensure('latest') }
     end
     describe "jenkins_job_builder installed from pkg on 'RedHat' OS version el6" do
-      let(:params) do
+      let :params do
         {
           install_from_pkg: true
         }
       end
-      let(:facts) do
+      let :facts do
         {
           osfamily: 'RedHat',
           operatingsystemrelease: '6'
@@ -169,12 +169,12 @@ describe 'jenkins_job_builder' do
       it { should contain_package('jenkins-job-builder').with_ensure('latest') }
     end
     describe "jenkins_job_builder installed from pkg on 'RedHat' OS" do
-      let(:params) do
+      let :params do
         {
           install_from_pkg: true
         }
       end
-      let(:facts) do
+      let :facts do
         {
           osfamily: 'RedHat',
           operatingsystemrelease: '7'
@@ -187,29 +187,34 @@ describe 'jenkins_job_builder' do
 
   context 'explicit timeout value' do
     describe 'jenkins_job_builder with timeout value specified' do
-      let(:params) {{
-        timeout: '25'
-      }}
-      let(:facts) {{
-        osfamily: 'RedHat',
-        operatingsystemrelease: '7'
-      }}
+      let :params do
+        {
+          timeout: '25'
+        }
+      end
+      let :facts do
+        {
+          osfamily: 'RedHat',
+          operatingsystemrelease: '7'
+        }
+      end
 
-      it { should contain_ini_setting('jenkins-jobs timeout').with(
-        'ensure'  => 'present',
-        'path'    => '/etc/jenkins_jobs/jenkins_jobs.ini',
-        'section' => 'jenkins',
-        'setting' => 'timeout',
-        'value'   => 25,
-        'require' => 'File[/etc/jenkins_jobs/jenkins_jobs.ini]'
+      it do
+        should contain_ini_setting('jenkins-jobs timeout').with(
+          'ensure'  => 'present',
+          'path'    => '/etc/jenkins_jobs/jenkins_jobs.ini',
+          'section' => 'jenkins',
+          'setting' => 'timeout',
+          'value'   => 25,
+          'require' => 'File[/etc/jenkins_jobs/jenkins_jobs.ini]'
       )
-      }
+      end
     end
   end
 
   context 'unsupported operating system' do
     describe 'jenkins_job_builder class without any parameters on Solaris/Nexenta' do
-      let(:facts) do
+      let :facts do
         {
           osfamily: 'Solaris',
           operatingsystem: 'Nexenta',
@@ -223,7 +228,7 @@ describe 'jenkins_job_builder' do
 
   context 'creates jobs' do
     describe 'jenkins_job_builder with a hash of jobs' do
-      let(:params) do
+      let :params do
         {
           jobs: {
             'test01' => {
@@ -241,7 +246,7 @@ describe 'jenkins_job_builder' do
           }
         }
       end
-      let(:facts) do
+      let :facts do
         {
           osfamily: 'Debian',
           operatingsystemrelease: 'should_not_be_used'
