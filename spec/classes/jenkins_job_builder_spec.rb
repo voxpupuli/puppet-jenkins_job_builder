@@ -202,7 +202,8 @@ describe 'jenkins_job_builder' do
         'setting' => 'timeout',
         'value'   => 25,
         'require' => 'File[/etc/jenkins_jobs/jenkins_jobs.ini]'
-      )}
+      )
+      }
 
     end
   end
