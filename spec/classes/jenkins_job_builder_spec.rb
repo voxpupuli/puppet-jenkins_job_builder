@@ -192,6 +192,7 @@ describe 'jenkins_job_builder' do
       }}
       let(:facts) {{
         :osfamily => 'RedHat',
+        :operatingsystemrelease => '7'
       }}
 
       it { should contain_ini_setting('jenkins-jobs timeout').with(
