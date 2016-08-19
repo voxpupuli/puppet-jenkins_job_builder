@@ -1,3 +1,8 @@
+## 2016-08-19 - Release 2.0.1
+  - Fix:  implement optional idempotent update operation
+  - Modulesync with latest Vox Pupuli defaults
+
+
 ##2016-06-08 - Release 2.0.0
 ###Summary
 
@@ -8,6 +13,7 @@
   - Issue #31, Support for sourcing jobs
   - add capability to install job_builder from git
   - removing argparse dependency for debian
+
 
 ##2014-10-24 - Release 1.1.0
 ###Summary
@@ -24,6 +30,7 @@
   - add missing inifile dependency into metadata.json
   - fixes bug in the yaml template not generating the correct yaml configuration (#7)
 
+
 ##2014-10-10 - Release 1.0.0
 ###Summary
 
@@ -38,6 +45,7 @@
  - Fix missing '-job' keyword in yaml template
  - Added missing python-argparse dependency
 
+
 ##2014-06-13 - Release 0.1.1
 ###Summary
   This release fixes some bugs in the yaml file
@@ -45,6 +53,7 @@
 ####Bugfixes
 
 - fixed bug with double quote escaping causing and invalid yaml file
+
 
 ##2014-06-06 - Release 0.1.0
 ###Summary
