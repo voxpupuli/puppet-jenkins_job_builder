@@ -11,8 +11,8 @@ describe 'jenkins_job_builder class' do
       EOS
 
       # Run it twice and test for idempotency
-      expect(apply_manifest(pp).exit_code).not_to eq(1)
-      expect(apply_manifest(pp).exit_code).to eq(0)
+      apply_manifest(pp, catch_failures: true, debug: true, trace: true)
+      apply_manifest(pp, catch_changes: true, debug: true, trace: true)
     end
 
     describe package('jenkins-job-builder') do

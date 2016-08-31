@@ -1,12 +1,12 @@
 {
   "name": "puppet-jenkins_job_builder",
-  "version": "2.0.1-rc0",
-  "author": "voxpupuli",
+  "version": "2.0.1",
+  "author": "Vox Pupuli",
   "license": "MIT",
   "summary": "Module for managing the openstack jenkins_job_builder tool",
-  "source": "git://github.com/puppet-community/puppet-jenkins_job_builder.git",
-  "project_page": "https://github.com/puppet-community/puppet-jenkins_job_builder",
-  "issues_url": "https://github.com/puppet-community/puppet-jenkins_job_builder/issues",
+  "source": "https://github.com/voxpupuli/puppet-jenkins_job_builder.git",
+  "project_page": "https://github.com/voxpupuli/puppet-jenkins_job_builder",
+  "issues_url": "https://github.com/voxpupuli/puppet-jenkins_job_builder/issues",
   "tags": [
     "jenkins"
   ],
