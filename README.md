@@ -1,5 +1,12 @@
 # Jenkins Job Builder module for Puppet
 
+[![Build Status](https://travis-ci.org/voxpupuli/puppet-jenkins_job_builder.png?branch=master)](https://travis-ci.org/voxpupuli/puppet-jenkins_job_builder)
+[![Code Coverage](https://coveralls.io/repos/github/voxpupuli/puppet-jenkins_job_builder/badge.svg?branch=master)](https://coveralls.io/github/voxpupuli/puppet-jenkins_job_builder)
+[![Puppet Forge](https://img.shields.io/puppetforge/v/puppet/jenkins_job_builder.svg)](https://forge.puppetlabs.com/puppet/jenkins_job_builder)
+[![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/puppet/jenkins_job_builder.svg)](https://forge.puppetlabs.com/puppet/jenkins_job_builder)
+[![Puppet Forge - endorsement](https://img.shields.io/puppetforge/e/puppet/jenkins_job_builder.svg)](https://forge.puppetlabs.com/puppet/jenkins_job_builder)
+[![Puppet Forge - scores](https://img.shields.io/puppetforge/f/puppet/jenkins_job_builder.svg)](https://forge.puppetlabs.com/puppet/jenkins_job_builder)
+
 #### Table of Contents
 
 1. [Overview](#overview)
@@ -17,8 +24,6 @@
 
 Install [jenkins_job_builder](ci.openstack.org/jenkins-job-builder/) to allow you
 to manage your Jenkins jobs.
-
-[![Build Status](https://api.travis-ci.org/voxpupuli/puppet-jenkins_job_builder.png)](https://travis-ci.org/voxpupuli/puppet-jenkins_job_builder)
 
 ## Module Description
 
