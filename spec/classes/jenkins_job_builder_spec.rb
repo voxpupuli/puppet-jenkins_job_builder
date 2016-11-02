@@ -13,20 +13,20 @@ describe 'jenkins_job_builder' do
           }
         end
 
-        it { should compile.with_all_deps }
+        it { is_expected.to compile.with_all_deps }
 
-        it { should contain_class('jenkins_job_builder::params') }
+        it { is_expected.to contain_class('jenkins_job_builder::params') }
 
-        it { should contain_class('jenkins_job_builder::install').that_comes_before('class[jenkins_job_builder::config]') }
-        it { should contain_class('jenkins_job_builder::config') }
+        it { is_expected.to contain_class('jenkins_job_builder::install').that_comes_before('class[jenkins_job_builder::config]') }
+        it { is_expected.to contain_class('jenkins_job_builder::config') }
 
-        it { should contain_package('jenkins-job-builder').with_ensure('latest') }
+        it { is_expected.to contain_package('jenkins-job-builder').with_ensure('latest') }
 
-        it { should contain_file('/etc/jenkins_jobs').with_ensure('directory') }
-        it { should contain_file('/etc/jenkins_jobs/jenkins_jobs.ini').with_ensure('present') }
+        it { is_expected.to contain_file('/etc/jenkins_jobs').with_ensure('directory') }
+        it { is_expected.to contain_file('/etc/jenkins_jobs/jenkins_jobs.ini').with_ensure('present') }
 
         it do
-          should contain_ini_setting('jenkins-jobs user').with(
+          is_expected.to contain_ini_setting('jenkins-jobs user').with(
             'ensure'  => 'present',
             'path'    => '/etc/jenkins_jobs/jenkins_jobs.ini',
             'section' => 'jenkins',
@@ -37,7 +37,7 @@ describe 'jenkins_job_builder' do
         end
 
         it do
-          should contain_ini_setting('jenkins-jobs password').with(
+          is_expected.to contain_ini_setting('jenkins-jobs password').with(
             'ensure'  => 'present',
             'path'    => '/etc/jenkins_jobs/jenkins_jobs.ini',
             'section' => 'jenkins',
@@ -48,7 +48,7 @@ describe 'jenkins_job_builder' do
         end
 
         it do
-          should contain_ini_setting('jenkins-jobs url').with(
+          is_expected.to contain_ini_setting('jenkins-jobs url').with(
             'ensure'  => 'present',
             'path'    => '/etc/jenkins_jobs/jenkins_jobs.ini',
             'section' => 'jenkins',
@@ -59,7 +59,7 @@ describe 'jenkins_job_builder' do
         end
 
         it do
-          should contain_ini_setting('jenkins-jobs hipchat token').with(
+          is_expected.to contain_ini_setting('jenkins-jobs hipchat token').with(
             'ensure'  => 'present',
             'path'    => '/etc/jenkins_jobs/jenkins_jobs.ini',
             'section' => 'hipchat',
@@ -81,7 +81,7 @@ describe 'jenkins_job_builder' do
       end
 
       ['python', 'python-pip', 'python-yaml'].each do |dep|
-        it { should contain_package(dep).with_ensure('present') }
+        it { is_expected.to contain_package(dep).with_ensure('present') }
       end
     end
 
@@ -95,7 +95,7 @@ describe 'jenkins_job_builder' do
       end
 
       ['python', 'python-pip', 'PyYAML', 'python-argparse'].each do |dep|
-        it { should contain_package(dep).with_ensure('present') }
+        it { is_expected.to contain_package(dep).with_ensure('present') }
       end
     end
 
@@ -109,7 +109,7 @@ describe 'jenkins_job_builder' do
       end
 
       ['python', 'python-pip', 'PyYAML'].each do |dep|
-        it { should contain_package(dep).with_ensure('present') }
+        it { is_expected.to contain_package(dep).with_ensure('present') }
       end
     end
   end
@@ -129,7 +129,7 @@ describe 'jenkins_job_builder' do
       end
 
       it do
-        should contain_vcsrepo('/opt/jenkins_job_builder').with(
+        is_expected.to contain_vcsrepo('/opt/jenkins_job_builder').with(
           'ensure'   => 'latest',
           'provider' => 'git'
         )
@@ -151,7 +151,7 @@ describe 'jenkins_job_builder' do
         }
       end
 
-      it { should contain_package('jenkins-job-builder').with_ensure('latest') }
+      it { is_expected.to contain_package('jenkins-job-builder').with_ensure('latest') }
     end
     describe "jenkins_job_builder installed from pkg on 'RedHat' OS version el6" do
       let :params do
@@ -166,7 +166,7 @@ describe 'jenkins_job_builder' do
         }
       end
 
-      it { should contain_package('jenkins-job-builder').with_ensure('latest') }
+      it { is_expected.to contain_package('jenkins-job-builder').with_ensure('latest') }
     end
     describe "jenkins_job_builder installed from pkg on 'RedHat' OS" do
       let :params do
@@ -181,7 +181,7 @@ describe 'jenkins_job_builder' do
         }
       end
 
-      it { should contain_package('python-jenkins-job-builder').with_ensure('latest') }
+      it { is_expected.to contain_package('python-jenkins-job-builder').with_ensure('latest') }
     end
   end
 
@@ -200,7 +200,7 @@ describe 'jenkins_job_builder' do
       end
 
       it do
-        should contain_ini_setting('jenkins-jobs timeout').with(
+        is_expected.to contain_ini_setting('jenkins-jobs timeout').with(
           'ensure'  => 'present',
           'path'    => '/etc/jenkins_jobs/jenkins_jobs.ini',
           'section' => 'jenkins',
@@ -222,7 +222,7 @@ describe 'jenkins_job_builder' do
         }
       end
 
-      it { expect { should contain_package('jenkins_job_builder') }.to raise_error(Puppet::Error, %r{Nexenta not supported}) }
+      it { expect { is_expected.to contain_package('jenkins_job_builder') }.to raise_error(Puppet::Error, %r{Nexenta not supported}) }
     end
   end
 
@@ -254,13 +254,13 @@ describe 'jenkins_job_builder' do
       end
 
       it do
-        should contain_file('/tmp/jenkins-test01.yaml').with(
+        is_expected.to contain_file('/tmp/jenkins-test01.yaml').with(
           'content' => ['job' => params[:jobs]['test01']['config']].to_yaml
         )
       end
 
       it do
-        should contain_file('/tmp/jenkins-test02.yaml').with(
+        is_expected.to contain_file('/tmp/jenkins-test02.yaml').with(
           'content' => ['job' => params[:jobs]['test02']['config']].to_yaml
         )
       end

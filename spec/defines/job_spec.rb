@@ -7,12 +7,12 @@ describe 'jenkins_job_builder::job', type: :define do
       describe "jenkins_job_builder::job define without any parameters on #{osfamily}" do
         let(:title) { 'test' }
 
-        it { should contain_file('/tmp/jenkins-test.yaml') }
+        it { is_expected.to contain_file('/tmp/jenkins-test.yaml') }
 
-        it { should contain_file('/tmp/jenkins-test.yaml').with_content('') }
+        it { is_expected.to contain_file('/tmp/jenkins-test.yaml').with_content('') }
 
         it do
-          should contain_exec('manage jenkins job - test').with(
+          is_expected.to contain_exec('manage jenkins job - test').with(
             'command' => '/bin/sleep 0 && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-test.yaml',
             'refreshonly' => 'true',
             'require' => 'Service[jenkins]',
@@ -34,7 +34,7 @@ describe 'jenkins_job_builder::job', type: :define do
       end
 
       it do
-        should contain_exec('manage jenkins job - test').with(
+        is_expected.to contain_exec('manage jenkins job - test').with(
           'command' => '/bin/sleep 5 && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-test.yaml'
         )
       end
@@ -50,7 +50,7 @@ describe 'jenkins_job_builder::job', type: :define do
       end
 
       it do
-        should contain_exec('manage jenkins job - test').with(
+        is_expected.to contain_exec('manage jenkins job - test').with(
           'command' => '/bin/sleep 0 && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-test.yaml',
           'tries' => '10',
           'try_sleep' => '45'
@@ -67,7 +67,7 @@ describe 'jenkins_job_builder::job', type: :define do
       end
 
       it do
-        should contain_exec('manage jenkins job - test').with(
+        is_expected.to contain_exec('manage jenkins job - test').with(
           'command' => '/bin/sleep 0 && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-test.yaml',
           'unless'  => "/bin/bash -c '/bin/diff <(/bin/xmllint --c14n /var/lib/jenkins/jobs/test/config.xml || echo '') <(/bin/sleep 0 && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini test /tmp/jenkins-test.yaml|/bin/xmllint --c14n - )'"
         )
@@ -83,7 +83,7 @@ describe 'jenkins_job_builder::job', type: :define do
       end
 
       it do
-        should contain_file('/tmp/jenkins-test.yaml').with(
+        is_expected.to contain_file('/tmp/jenkins-test.yaml').with(
           'content' => ['job' => params['config']].to_yaml
         )
       end
@@ -97,7 +97,7 @@ describe 'jenkins_job_builder::job', type: :define do
         }
       end
       it do
-        should contain_file('/tmp/jenkins-test.yaml').with(
+        is_expected.to contain_file('/tmp/jenkins-test.yaml').with(
           'content' => "---\n- job:\n  name: test\n"
         )
       end

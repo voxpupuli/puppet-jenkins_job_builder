@@ -16,7 +16,7 @@ describe 'jenkins_job_builder class' do
     end
 
     describe package('jenkins-job-builder') do
-      it { should be_installed.by('pip') }
+      it { is_expected.to be_installed.by('pip') }
     end
 
     # TODO: test ini file
@@ -39,8 +39,8 @@ describe 'jenkins_job_builder class' do
 YAML
 
     describe file('/tmp/jenkins-test.yaml') do
-      it { should be_file }
-      its(:content) { should == yaml_content }
+      it { is_expected.to be_file }
+      its(:content) { is_expected.to == yaml_content }
     end
   end
 end
