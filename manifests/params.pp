@@ -30,7 +30,7 @@ class jenkins_job_builder::params {
         # This requires the dcaro/jenkins-job-builder repository
         $jjb_packages    = [ 'jenkins-job-builder']
       } else {
-        $python_packages = [ 'python', 'python-devel', 'python-pip', 'PyYAML']
+        $python_packages = [ 'python', 'python-devel', 'python2-pip', 'PyYAML']
         $jjb_packages    = [ 'python-jenkins-job-builder']
       }
     }
