@@ -108,7 +108,7 @@ describe 'jenkins_job_builder' do
         }
       end
 
-      ['python', 'python-pip', 'PyYAML'].each do |dep|
+      ['python', 'python2-pip', 'PyYAML'].each do |dep|
         it { is_expected.to contain_package(dep).with_ensure('present') }
       end
     end
