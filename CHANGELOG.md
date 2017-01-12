@@ -1,3 +1,13 @@
+# Changelog
+
+## 2017-01-12 - Release 2.1.0
+
+This is the last release with Puppet 3 support!
+- Rename python-pip to python2-pip
+- Fix several markdown issues
+- Adjust minimal required Puppet + dependency versions
+- Add missing badges
+
 ## 2016-08-19 - Release 2.0.1
   - Fix:  implement optional idempotent update operation
   - Modulesync with latest Vox Pupuli defaults
