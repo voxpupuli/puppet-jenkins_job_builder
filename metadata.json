@@ -1,6 +1,6 @@
 {
   "name": "puppet-jenkins_job_builder",
-  "version": "2.1.0",
+  "version": "2.1.1-rc0",
   "author": "Vox Pupuli",
   "license": "MIT",
   "summary": "Module for managing the openstack jenkins_job_builder tool",
