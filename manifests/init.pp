@@ -70,8 +70,7 @@ class jenkins_job_builder(
     fail("A single primary install source must be selected for ${name}")
   }
 
-  class {'::jenkins_job_builder::install': } ->
-  class {'::jenkins_job_builder::config': } ->
-
-  Class['jenkins_job_builder']
+  class {'::jenkins_job_builder::install': }
+  -> class {'::jenkins_job_builder::config': }
+  -> Class['jenkins_job_builder']
 }
