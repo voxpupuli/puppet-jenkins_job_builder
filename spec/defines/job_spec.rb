@@ -1,9 +1,10 @@
 # frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'jenkins_job_builder::job', type: :define do
   context 'supported operating systems' do
-    %w(Debian RedHat).each do |osfamily|
+    %w[Debian RedHat].each do |osfamily|
       describe "jenkins_job_builder::job define without any parameters on #{osfamily}" do
         let(:title) { 'test' }
 
@@ -96,6 +97,7 @@ describe 'jenkins_job_builder::job', type: :define do
           'job_yaml' => "---\n- job:\n  name: test\n"
         }
       end
+
       it do
         is_expected.to contain_file('/tmp/jenkins-test.yaml').with(
           'content' => "---\n- job:\n  name: test\n"
