@@ -189,7 +189,7 @@ describe 'jenkins_job_builder' do
     describe 'jenkins_job_builder with timeout value specified' do
       let :params do
         {
-          timeout: '25'
+          timeout: 25
         }
       end
       let :facts do

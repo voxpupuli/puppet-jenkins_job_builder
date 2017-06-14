@@ -51,44 +51,26 @@
 # }
 #
 class jenkins_job_builder(
-  $version          = $jenkins_job_builder::params::version,
-  $jobs             = $jenkins_job_builder::params::jobs,
-  $user             = $jenkins_job_builder::params::user,
-  $password         = $jenkins_job_builder::params::password,
-  $timeout          = $jenkins_job_builder::params::timeout,
-  $hipchat_token    = $jenkins_job_builder::params::hipchat_token,
-  $jenkins_url      = $jenkins_job_builder::params::jenkins_url,
-  $service          = 'jenkins',
-  $install_from_git = $jenkins_job_builder::params::install_from_git,
-  $install_from_pkg = $jenkins_job_builder::params::install_from_pkg,
-  $git_revision     = $jenkins_job_builder::params::git_revision,
-  $git_url          = $jenkins_job_builder::params::git_url,
+  $version                   = $jenkins_job_builder::params::version,
+  Hash $jobs                 = $jenkins_job_builder::params::jobs,
+  String $user               = $jenkins_job_builder::params::user,
+  String $password           = $jenkins_job_builder::params::password,
+  Optional[Integer] $timeout = $jenkins_job_builder::params::timeout,
+  String $hipchat_token      = $jenkins_job_builder::params::hipchat_token,
+  String $jenkins_url        = $jenkins_job_builder::params::jenkins_url,
+  String $service            = 'jenkins',
+  Boolean $install_from_git  = $jenkins_job_builder::params::install_from_git,
+  Boolean $install_from_pkg  = $jenkins_job_builder::params::install_from_pkg,
+  String $git_revision       = $jenkins_job_builder::params::git_revision,
+  String $git_url            = $jenkins_job_builder::params::git_url,
 
 ) inherits jenkins_job_builder::params {
-
-  validate_re($::osfamily,'RedHat|Debian',"${::osfamily} not supported")
-  validate_hash($jobs)
-  validate_string($user)
-  validate_string($password)
-  validate_string($hipchat_token)
-  validate_string($jenkins_url)
-  validate_string($version)
-  validate_string($git_revision)
-  validate_string($git_url)
-  validate_bool($install_from_git)
-  validate_bool($install_from_pkg)
 
   if count([$install_from_git, $install_from_pkg], true) > 1 {
     fail("A single primary install source must be selected for ${name}")
   }
 
-  # only validate optional params if they are present
-  if $timeout {
-    validate_integer($timeout)
-  }
-
-  class {'::jenkins_job_builder::install': } ->
-  class {'::jenkins_job_builder::config': } ->
-
-  Class['jenkins_job_builder']
+  class {'::jenkins_job_builder::install': }
+  -> class {'::jenkins_job_builder::config': }
+  -> Class['jenkins_job_builder']
 }
