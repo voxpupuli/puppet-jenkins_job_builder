@@ -35,7 +35,7 @@ class jenkins_job_builder::params {
       }
     }
     'debian': {
-      $python_packages = [ 'python', 'python-dev', 'python-pip', 'python-argparse', 'python-yaml' ]
+      $python_packages = [ 'python', 'python-dev', 'python-pip', 'libpython2.7-stdlib', 'python-yaml' ]
       $jjb_packages    = [ 'jenkins-job-builder']
     }
     default: {
