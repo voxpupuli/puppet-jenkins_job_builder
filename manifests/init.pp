@@ -20,10 +20,10 @@
 # A hash of the configuration for all the jobs you want to configure in your Jenkins instance.
 #
 # [*user*]
-# The user used to authenticate to the Jenkins instance.
+# The user used to authenticate to the Jenkins instance. (optional)
 #
 # [*password*]
-# The password used to authenticate to the Jenkins instance.
+# The password used to authenticate to the Jenkins instance. (optional)
 #
 # [*timeout*]
 # The connection timeout (in seconds) to the Jenkins server.
@@ -53,8 +53,8 @@
 class jenkins_job_builder(
   $version                   = $jenkins_job_builder::params::version,
   Hash $jobs                 = $jenkins_job_builder::params::jobs,
-  String $user               = $jenkins_job_builder::params::user,
-  String $password           = $jenkins_job_builder::params::password,
+  Optional[String] $user     = $jenkins_job_builder::params::user,
+  Optional[String] $password = $jenkins_job_builder::params::password,
   Optional[Integer] $timeout = $jenkins_job_builder::params::timeout,
   String $hipchat_token      = $jenkins_job_builder::params::hipchat_token,
   String $jenkins_url        = $jenkins_job_builder::params::jenkins_url,
