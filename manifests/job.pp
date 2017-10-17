@@ -51,10 +51,10 @@
 #   config => $job
 # }
 #
-define jenkins_job_builder::job (
+define jenkins_job_builder::job(
   $config = {},
   $delay = 0,
-  $service_name = 'jenkins',
+  $service_name = $jenkins_job_builder::service,
   $job_yaml = '',
   $jobs = undef,
   $tries = '5',
