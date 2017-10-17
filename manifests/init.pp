@@ -58,7 +58,7 @@ class jenkins_job_builder(
   Optional[Integer] $timeout = $jenkins_job_builder::params::timeout,
   String $hipchat_token      = $jenkins_job_builder::params::hipchat_token,
   String $jenkins_url        = $jenkins_job_builder::params::jenkins_url,
-  String $service            = 'jenkins',
+  String $service            = $jenkins_job_builder::params::service,
   Boolean $install_from_git  = $jenkins_job_builder::params::install_from_git,
   Boolean $install_from_pkg  = $jenkins_job_builder::params::install_from_pkg,
   String $git_revision       = $jenkins_job_builder::params::git_revision,
@@ -70,7 +70,9 @@ class jenkins_job_builder(
     fail("A single primary install source must be selected for ${name}")
   }
 
-  class {'::jenkins_job_builder::install': }
-  -> class {'::jenkins_job_builder::config': }
-  -> Class['jenkins_job_builder']
+  contain jenkins_job_builder::install
+  contain jenkins_job_builder::config
+
+  Class['jenkins_job_builder::install']
+  -> Class['jenkins_job_builder::config']
 }

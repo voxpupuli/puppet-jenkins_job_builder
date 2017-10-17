@@ -1,9 +1,14 @@
 # frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'jenkins_job_builder' do
+  let(:pre_condition) do
+    "service { 'jenkins': }"
+  end
+
   context 'supported operating systems' do
-    %w(Debian RedHat).each do |osfamily|
+    %w[Debian RedHat].each do |osfamily|
       describe "jenkins_job_builder class without any parameters on #{osfamily}" do
         let(:params) { {} }
         let :facts do

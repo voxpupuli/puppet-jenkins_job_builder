@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'beaker-rspec/spec_helper'
 require 'beaker-rspec/helpers/serverspec'
 
