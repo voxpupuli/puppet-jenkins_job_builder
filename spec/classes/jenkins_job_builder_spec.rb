@@ -36,7 +36,7 @@ describe 'jenkins_job_builder' do
             'path'    => '/etc/jenkins_jobs/jenkins_jobs.ini',
             'section' => 'jenkins',
             'setting' => 'user',
-            'value'   => '',
+            'value'   => nil,
             'require' => 'File[/etc/jenkins_jobs/jenkins_jobs.ini]'
           )
         end
@@ -47,7 +47,7 @@ describe 'jenkins_job_builder' do
             'path'    => '/etc/jenkins_jobs/jenkins_jobs.ini',
             'section' => 'jenkins',
             'setting' => 'password',
-            'value'   => '',
+            'value'   => nil,
             'require' => 'File[/etc/jenkins_jobs/jenkins_jobs.ini]'
           )
         end

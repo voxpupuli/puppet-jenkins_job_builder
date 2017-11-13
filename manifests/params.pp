@@ -10,8 +10,8 @@
 class jenkins_job_builder::params {
 
   $jobs = {}
-  $user = ''
-  $password = ''
+  $user = undef
+  $password = undef
   $timeout = undef
   $hipchat_token = ''
   $jenkins_url = 'http://localhost:8080'

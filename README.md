@@ -67,11 +67,11 @@ Jenkins instance.
 
 #### `user`
 
-The user used to authenticate to the Jenkins instance.
+The user used to authenticate to the Jenkins instance. (optional)
 
 #### `password`
 
-The password used to authenticate to the Jenkins instance.
+The password used to authenticate to the Jenkins instance. (optional)
 
 #### `timeout`
 
