@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v3.0.2](https://github.com/voxpupuli/puppet-jenkins_job_builder/tree/v3.0.2) (2018-10-14)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-jenkins_job_builder/compare/v3.0.1...v3.0.2)
+
+**Merged pull requests:**
+
+- modulesync 2.2.0 and allow puppet 6.x [\#83](https://github.com/voxpupuli/puppet-jenkins_job_builder/pull/83) ([bastelfreak](https://github.com/bastelfreak))
+- allow puppetlabs/stdlib 5.x [\#81](https://github.com/voxpupuli/puppet-jenkins_job_builder/pull/81) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v3.0.1](https://github.com/voxpupuli/puppet-jenkins_job_builder/tree/v3.0.1) (2018-08-15)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-jenkins_job_builder/compare/v3.0.0...v3.0.1)
