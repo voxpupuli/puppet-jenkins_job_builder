@@ -9,7 +9,11 @@ describe 'jenkins_job_builder::job', type: :define do
       "service { 'jenkins': }"
     ]
   end
-  let(:facts) { { osfamily: 'Debian' } }
+  let(:facts) do
+    {
+      os: { family: 'Debian' }
+    }
+  end
 
   context 'supported operating systems' do
     %w[Debian RedHat].each do |osfamily|
@@ -17,8 +21,10 @@ describe 'jenkins_job_builder::job', type: :define do
         let(:title) { 'test' }
         let :facts do
           {
-            osfamily: osfamily,
-            operatingsystemrelease: '6'
+            os: {
+              family: osfamily,
+              release: { full: '6' }
+            }
           }
         end
 

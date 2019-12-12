@@ -13,8 +13,10 @@ describe 'jenkins_job_builder' do
         let(:params) { {} }
         let :facts do
           {
-            osfamily: osfamily,
-            operatingsystemrelease: '6'
+            os: {
+              family: osfamily,
+              release: { full: '6' }
+            }
           }
         end
 
@@ -80,8 +82,10 @@ describe 'jenkins_job_builder' do
       let(:params) { {} }
       let :facts do
         {
-          osfamily: 'Debian',
-          operatingsystemrelease: 'should_not_be_used'
+          os: {
+            family: 'Debian',
+            release: { full: 'should_not_be_used' }
+          }
         }
       end
 
@@ -94,8 +98,10 @@ describe 'jenkins_job_builder' do
       let(:params) { {} }
       let :facts do
         {
-          osfamily: 'RedHat',
-          operatingsystemrelease: '6'
+          os: {
+            family: 'RedHat',
+            release: { full: '6' }
+          }
         }
       end
 
@@ -108,8 +114,10 @@ describe 'jenkins_job_builder' do
       let(:params) { {} }
       let :facts do
         {
-          osfamily: 'RedHat',
-          operatingsystemrelease: '7'
+          os: {
+            family: 'RedHat',
+            release: { full: '7' }
+          }
         }
       end
 
@@ -128,8 +136,10 @@ describe 'jenkins_job_builder' do
       end
       let(:facts) do
         {
-          osfamily: 'Debian',
-          operatingsystemrelease: 'should_not_be_used'
+          os: {
+            family: 'Debian',
+            release: { full: 'should_not_be_used' }
+          }
         }
       end
 
@@ -151,8 +161,10 @@ describe 'jenkins_job_builder' do
       end
       let(:facts) do
         {
-          osfamily: 'Debian',
-          operatingsystemrelease: 'should_not_be_used'
+          os: {
+            family: 'Debian',
+            release: { full: 'should_not_be_used' }
+          }
         }
       end
 
@@ -166,8 +178,10 @@ describe 'jenkins_job_builder' do
       end
       let :facts do
         {
-          osfamily: 'RedHat',
-          operatingsystemrelease: '6'
+          os: {
+            family: 'RedHat',
+            release: { full: '6' }
+          }
         }
       end
 
@@ -181,8 +195,10 @@ describe 'jenkins_job_builder' do
       end
       let :facts do
         {
-          osfamily: 'RedHat',
-          operatingsystemrelease: '7'
+          os: {
+            family: 'RedHat',
+            release: { full: '7' }
+          }
         }
       end
 
@@ -199,8 +215,10 @@ describe 'jenkins_job_builder' do
       end
       let :facts do
         {
-          osfamily: 'RedHat',
-          operatingsystemrelease: '7'
+          os: {
+            family: 'RedHat',
+            release: { full: '7' }
+          }
         }
       end
 
@@ -221,9 +239,13 @@ describe 'jenkins_job_builder' do
     describe 'jenkins_job_builder class without any parameters on Solaris/Nexenta' do
       let :facts do
         {
-          osfamily: 'Solaris',
-          operatingsystem: 'Nexenta',
-          operatingsystemrelease: 'should_not_be_used'
+          os: {
+            family: 'Solaris',
+            release: {
+              name: 'Nexenta',
+              full: 'should_not_be_used'
+            }
+          }
         }
       end
 
@@ -253,8 +275,10 @@ describe 'jenkins_job_builder' do
       end
       let :facts do
         {
-          osfamily: 'Debian',
-          operatingsystemrelease: 'should_not_be_used'
+          os: {
+            family: 'Debian',
+            release: { full: 'should_not_be_used' }
+          }
         }
       end
 
