@@ -9,113 +9,101 @@ describe 'jenkins_job_builder::job', type: :define do
       "service { 'jenkins': }"
     ]
   end
-  let(:facts) { { osfamily: 'Debian' } }
 
-  context 'supported operating systems' do
-    %w[Debian RedHat].each do |osfamily|
-      describe "jenkins_job_builder::job define without any parameters on #{osfamily}" do
+  on_supported_os.each do |os, os_facts|
+    context "on #{os}" do
+      let(:facts) { os_facts }
+      let(:title) { 'test' }
+
+      it { is_expected.to contain_file('/tmp/jenkins-test.yaml').with_content('') }
+
+      it do
+        is_expected.to contain_exec('manage jenkins job - test').with(
+          'command' => '/bin/sleep 0 && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-test.yaml',
+          'refreshonly' => 'true',
+          'require' => 'Service[jenkins]',
+          'tries' => '5',
+          'try_sleep' => '15'
+        )
+      end
+
+      describe 'increased delay' do
         let(:title) { 'test' }
-        let :facts do
+        let(:params) do
           {
-            osfamily: osfamily,
-            operatingsystemrelease: '6'
+            'delay' => '5'
           }
         end
 
-        it { is_expected.to contain_file('/tmp/jenkins-test.yaml') }
+        it do
+          is_expected.to contain_exec('manage jenkins job - test').with(
+            'command' => '/bin/sleep 5 && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-test.yaml'
+          )
+        end
+      end
 
-        it { is_expected.to contain_file('/tmp/jenkins-test.yaml').with_content('') }
+      describe 'with retry mechanism' do
+        let(:title) { 'test' }
+        let(:params) do
+          {
+            'tries' => '10',
+            'try_sleep' => '45'
+          }
+        end
 
         it do
           is_expected.to contain_exec('manage jenkins job - test').with(
             'command' => '/bin/sleep 0 && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-test.yaml',
-            'refreshonly' => 'true',
-            'require' => 'Service[jenkins]',
-            'tries' => '5',
-            'try_sleep' => '15'
+            'tries' => '10',
+            'try_sleep' => '45'
           )
         end
       end
-    end
-  end
 
-  context 'supported operating systems - params' do
-    describe 'increased delay' do
-      let(:title) { 'test' }
-      let(:params) do
-        {
-          'delay' => '5'
-        }
+      describe 'with idempotence enabled' do
+        let(:title) { 'test' }
+        let(:params) do
+          {
+            'idempotence' => true
+          }
+        end
+
+        it do
+          is_expected.to contain_exec('manage jenkins job - test').with(
+            'command' => '/bin/sleep 0 && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-test.yaml',
+            'unless'  => "/bin/bash -c '/bin/diff <(/bin/xmllint --c14n /var/lib/jenkins/jobs/test/config.xml || echo '') <(/bin/sleep 0 && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini test /tmp/jenkins-test.yaml|/bin/xmllint --c14n - )'"
+          )
+        end
       end
 
-      it do
-        is_expected.to contain_exec('manage jenkins job - test').with(
-          'command' => '/bin/sleep 5 && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-test.yaml'
-        )
-      end
-    end
+      describe 'custom config' do
+        let(:title) { 'test' }
+        let(:params) do
+          {
+            'config' => { 'name' => 'test' }
+          }
+        end
 
-    describe 'with retry mechanism' do
-      let(:title) { 'test' }
-      let(:params) do
-        {
-          'tries' => '10',
-          'try_sleep' => '45'
-        }
-      end
-
-      it do
-        is_expected.to contain_exec('manage jenkins job - test').with(
-          'command' => '/bin/sleep 0 && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-test.yaml',
-          'tries' => '10',
-          'try_sleep' => '45'
-        )
-      end
-    end
-
-    describe 'with idempotence enabled' do
-      let(:title) { 'test' }
-      let(:params) do
-        {
-          'idempotence' => true
-        }
+        it do
+          is_expected.to contain_file('/tmp/jenkins-test.yaml').with(
+            'content' => ['job' => params['config']].to_yaml
+          )
+        end
       end
 
-      it do
-        is_expected.to contain_exec('manage jenkins job - test').with(
-          'command' => '/bin/sleep 0 && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini update /tmp/jenkins-test.yaml',
-          'unless'  => "/bin/bash -c '/bin/diff <(/bin/xmllint --c14n /var/lib/jenkins/jobs/test/config.xml || echo '') <(/bin/sleep 0 && /usr/local/bin/jenkins-jobs --ignore-cache --conf /etc/jenkins_jobs/jenkins_jobs.ini test /tmp/jenkins-test.yaml|/bin/xmllint --c14n - )'"
-        )
-      end
-    end
+      describe 'job yaml' do
+        let(:title) { 'test' }
+        let(:params) do
+          {
+            'job_yaml' => "---\n- job:\n  name: test\n"
+          }
+        end
 
-    describe 'custom config' do
-      let(:title) { 'test' }
-      let(:params) do
-        {
-          'config' => { 'name' => 'test' }
-        }
-      end
-
-      it do
-        is_expected.to contain_file('/tmp/jenkins-test.yaml').with(
-          'content' => ['job' => params['config']].to_yaml
-        )
-      end
-    end
-
-    describe 'job yaml' do
-      let(:title) { 'test' }
-      let(:params) do
-        {
-          'job_yaml' => "---\n- job:\n  name: test\n"
-        }
-      end
-
-      it do
-        is_expected.to contain_file('/tmp/jenkins-test.yaml').with(
-          'content' => "---\n- job:\n  name: test\n"
-        )
+        it do
+          is_expected.to contain_file('/tmp/jenkins-test.yaml').with(
+            'content' => "---\n- job:\n  name: test\n"
+          )
+        end
       end
     end
   end
