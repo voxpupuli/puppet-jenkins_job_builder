@@ -174,7 +174,11 @@ describe 'jenkins_job_builder' do
       {
         osfamily: 'Solaris',
         operatingsystem: 'Nexenta',
-        operatingsystemrelease: 'should_not_be_used'
+        operatingsystemrelease: 'should_not_be_used',
+        os: {
+          'family' => 'Solaris',
+          'name' => 'Nexenta'
+        }
       }
     end
 
