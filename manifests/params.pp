@@ -23,9 +23,9 @@ class jenkins_job_builder::params {
   $git_revision     = 'master'
   $git_url          = 'https://git.openstack.org/openstack-infra/jenkins-job-builder'
 
-  case $::osfamily {
+  case $facts['os']['family'] {
     'RedHat', 'Amazon': {
-      if $::operatingsystemrelease =~ /^6/ {
+      if $facts['os']['release']['full'] =~ /^6/ {
         $python_packages = [ 'python', 'python-devel', 'python-pip', 'python-argparse', 'PyYAML']
         # This requires the dcaro/jenkins-job-builder repository
         $jjb_packages    = [ 'jenkins-job-builder']
@@ -39,7 +39,7 @@ class jenkins_job_builder::params {
       $jjb_packages    = [ 'jenkins-job-builder']
     }
     default: {
-      fail("${::operatingsystem} not supported")
+      fail("${facts['os']['name']} not supported")
     }
   }
 
