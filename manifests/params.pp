@@ -8,7 +8,6 @@
 # It sets the default paramters based upon operating system
 #
 class jenkins_job_builder::params {
-
   $jobs = {}
   $user = undef
   $password = undef
@@ -26,21 +25,20 @@ class jenkins_job_builder::params {
   case $facts['os']['family'] {
     'RedHat', 'Amazon': {
       if $facts['os']['release']['full'] =~ /^6/ {
-        $python_packages = [ 'python', 'python-devel', 'python-pip', 'python-argparse', 'PyYAML']
+        $python_packages = ['python', 'python-devel', 'python-pip', 'python-argparse', 'PyYAML']
         # This requires the dcaro/jenkins-job-builder repository
-        $jjb_packages    = [ 'jenkins-job-builder']
+        $jjb_packages    = ['jenkins-job-builder']
       } else {
-        $python_packages = [ 'python', 'python-devel', 'python2-pip', 'PyYAML']
-        $jjb_packages    = [ 'python-jenkins-job-builder']
+        $python_packages = ['python', 'python-devel', 'python2-pip', 'PyYAML']
+        $jjb_packages    = ['python-jenkins-job-builder']
       }
     }
     'debian': {
-      $python_packages = [ 'python', 'python-dev', 'python-pip', 'python-yaml' ]
-      $jjb_packages    = [ 'jenkins-job-builder']
+      $python_packages = ['python', 'python-dev', 'python-pip', 'python-yaml']
+      $jjb_packages    = ['jenkins-job-builder']
     }
     default: {
       fail("${facts['os']['name']} not supported")
     }
   }
-
 }

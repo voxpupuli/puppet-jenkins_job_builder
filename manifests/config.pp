@@ -7,7 +7,7 @@
 # This class is meant to be called from jenkins_job_builder
 # It sets the global ini file used by jenkins_job_builder
 #
-class jenkins_job_builder::config(
+class jenkins_job_builder::config (
   $jobs = $jenkins_job_builder::jobs,
   $user = $jenkins_job_builder::user,
   $password = $jenkins_job_builder::password,
@@ -15,7 +15,6 @@ class jenkins_job_builder::config(
   $hipchat_token = $jenkins_job_builder::hipchat_token,
   $jenkins_url = $jenkins_job_builder::jenkins_url
 ) {
-
   if $caller_module_name != $module_name {
     fail("Use of private class ${name} by ${caller_module_name}")
   }
@@ -25,7 +24,7 @@ class jenkins_job_builder::config(
   }
 
   file { '/etc/jenkins_jobs/jenkins_jobs.ini':
-    ensure  => present,
+    ensure  => file,
     require => File['/etc/jenkins_jobs'],
   }
 
@@ -81,5 +80,4 @@ class jenkins_job_builder::config(
   }
 
   create_resources('jenkins_job_builder::job', $jobs)
-
 }
