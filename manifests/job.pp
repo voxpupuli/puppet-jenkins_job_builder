@@ -51,7 +51,7 @@
 #   config => $job
 # }
 #
-define jenkins_job_builder::job(
+define jenkins_job_builder::job (
   $config = {},
   $delay = 0,
   $service_name = $jenkins_job_builder::service,
@@ -62,7 +62,6 @@ define jenkins_job_builder::job(
   $jenkins_job_dir = '/var/lib/jenkins/jobs',
   $idempotence = false,
 ) {
-
   if $delay != 0 {
     notice('The delay parameter has been replaced by retry functionality, and will be removed in a future release')
   }
@@ -81,7 +80,7 @@ define jenkins_job_builder::job(
       $content = $job_yaml
     }
     file { "/tmp/jenkins-${name}.yaml":
-      ensure  => present,
+      ensure  => file,
       content => $content,
       notify  => Exec["manage jenkins job - ${name}"],
     }
@@ -105,5 +104,4 @@ define jenkins_job_builder::job(
     try_sleep   => $try_sleep,
     require     => Service[$service_name],
   }
-
 }

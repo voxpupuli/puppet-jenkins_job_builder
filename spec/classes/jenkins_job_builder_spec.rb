@@ -43,7 +43,7 @@ describe 'jenkins_job_builder' do
       end
 
       it { is_expected.to contain_file('/etc/jenkins_jobs').with_ensure('directory') }
-      it { is_expected.to contain_file('/etc/jenkins_jobs/jenkins_jobs.ini').with_ensure('present') }
+      it { is_expected.to contain_file('/etc/jenkins_jobs/jenkins_jobs.ini').with_ensure('file') }
 
       it do
         is_expected.to contain_ini_setting('jenkins-jobs user').with(

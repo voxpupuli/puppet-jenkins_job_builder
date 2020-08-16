@@ -50,7 +50,7 @@
 #   version => 'latest'
 # }
 #
-class jenkins_job_builder(
+class jenkins_job_builder (
   $version                   = $jenkins_job_builder::params::version,
   Hash $jobs                 = $jenkins_job_builder::params::jobs,
   Optional[String] $user     = $jenkins_job_builder::params::user,
@@ -65,7 +65,6 @@ class jenkins_job_builder(
   String $git_url            = $jenkins_job_builder::params::git_url,
 
 ) inherits jenkins_job_builder::params {
-
   if count([$install_from_git, $install_from_pkg], true) > 1 {
     fail("A single primary install source must be selected for ${name}")
   }
