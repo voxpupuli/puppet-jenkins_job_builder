@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper_acceptance'
-include Beaker::HostPrebuiltSteps
 
 describe 'jenkins_job_builder class' do
   context 'with a defined job' do
