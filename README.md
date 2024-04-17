@@ -22,7 +22,7 @@
 
 ## Overview
 
-Install [jenkins_job_builder](ci.openstack.org/jenkins-job-builder/) to allow you
+Install [jenkins_job_builder](https://jenkins-job-builder.readthedocs.io/) to allow you
 to manage your Jenkins jobs.
 
 ## Module Description
